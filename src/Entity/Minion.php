@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Helpers\Manufacturer;
 use App\Repository\MinionRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -44,6 +45,12 @@ class Minion
      * @ORM\Column(type="text", nullable=true)
      */
     private $room;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Manufacturer::class, inversedBy="minions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $manufacturer;
 
     public function __construct()
     {
@@ -114,6 +121,18 @@ class Minion
     public function setRoom(?string $room): self
     {
         $this->room = $room;
+
+        return $this;
+    }
+
+    public function getManufacturer(): ?Manufacturer
+    {
+        return $this->manufacturer;
+    }
+
+    public function setManufacturer(?Manufacturer $manufacturer): self
+    {
+        $this->manufacturer = $manufacturer;
 
         return $this;
     }
