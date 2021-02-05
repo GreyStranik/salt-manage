@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 /**
+ * @ORM\Table(name="""helpers"".""manufacturer""")
  * @ORM\Entity(repositoryClass=ManufacturerRepository::class)
  */
 class Manufacturer
