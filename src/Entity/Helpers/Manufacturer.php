@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Table(name="""helpers"".""manufacturer""")
@@ -38,12 +39,18 @@ class Manufacturer
         $this->minions = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
@@ -84,4 +91,13 @@ class Manufacturer
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 }
