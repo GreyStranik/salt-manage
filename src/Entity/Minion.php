@@ -39,7 +39,7 @@ class Minion
     /**
      * @ORM\Column(type="date")
      */
-    private $biosrealisedate;
+    private $biosreleasedate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -101,14 +101,15 @@ class Minion
         return $this;
     }
 
-    public function getBiosrealisedate(): ?DateTimeInterface
+
+    public function getBiosreleasedate(): DateTimeInterface
     {
-        return $this->biosrealisedate;
+        return $this->biosreleasedate;
     }
 
-    public function setBiosrealisedate(DateTimeInterface $biosrealisedate): self
+    public function setBiosreleasedate(DateTimeInterface $biosreleasedate): self
     {
-        $this->biosrealisedate = $biosrealisedate;
+        $this->biosreleasedate = $biosreleasedate;
 
         return $this;
     }
