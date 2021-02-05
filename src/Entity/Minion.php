@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Manufacturer;
 use App\Repository\MinionRepository;
 use DateTimeInterface;
@@ -51,6 +52,12 @@ class Minion
      * @ORM\JoinColumn(nullable=false)
      */
     private $manufacturer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CpuModel::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cpu_model;
 
     public function __construct()
     {
@@ -134,6 +141,25 @@ class Minion
     public function setManufacturer(?Manufacturer $manufacturer): self
     {
         $this->manufacturer = $manufacturer;
+
+        return $this;
+    }
+
+    /**
+     * @return CpuModel
+     */
+    public function getCpuModel(): CpuModel
+    {
+        return $this->cpu_model;
+    }
+
+    /**
+     * @param CpuModel $cpu_model
+     * @return $this
+     */
+    public function setCpuModel(CpuModel $cpu_model): self
+    {
+        $this->cpu_model = $cpu_model;
 
         return $this;
     }
