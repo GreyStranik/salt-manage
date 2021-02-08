@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Manufacturer;
+use App\Entity\Helpers\ProductName;
 use App\Entity\Minion;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,6 +68,16 @@ class MinionController extends AbstractController
         }
         $minion->setCpuModel($cpu_model);
 
+
+        $product_name = $this->getDoctrine()->getRepository(ProductName::class)->findOneBy([
+            'name' => $data['productname']
+        ]);
+        if(!$product_name){
+            $product_name = new ProductName();
+            $product_name->setName($data['productname']);
+            $em->persist($product_name);
+        }
+        $minion->setProductName($product_name);
 
         $em->persist($minion);
         $em->flush();

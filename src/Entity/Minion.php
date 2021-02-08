@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Manufacturer;
+use App\Entity\Helpers\ProductName;
 use App\Repository\MinionRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,6 +59,12 @@ class Minion
      * @ORM\JoinColumn(nullable=false)
      */
     private $cpu_model;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProductName::class, inversedBy="minions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product_name;
 
     public function __construct(UuidInterface $uuid)
     {
@@ -160,6 +167,18 @@ class Minion
     public function setCpuModel(CpuModel $cpu_model): self
     {
         $this->cpu_model = $cpu_model;
+
+        return $this;
+    }
+
+    public function getProductName(): ?ProductName
+    {
+        return $this->product_name;
+    }
+
+    public function setProductName(?ProductName $product_name): self
+    {
+        $this->product_name = $product_name;
 
         return $this;
     }
