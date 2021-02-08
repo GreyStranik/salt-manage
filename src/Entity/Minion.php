@@ -59,9 +59,9 @@ class Minion
      */
     private $cpu_model;
 
-    public function __construct()
+    public function __construct(UuidInterface $uuid)
     {
-        //$this->id = Uuid::uuid4();
+        $this->id = $uuid;
     }
 
     /**
