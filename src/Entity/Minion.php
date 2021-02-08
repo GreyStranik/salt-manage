@@ -11,6 +11,7 @@ use App\Entity\Helpers\TypeDep;
 use App\Repository\MinionRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -20,6 +21,9 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Minion
 {
+
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
