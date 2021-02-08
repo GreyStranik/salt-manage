@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Entity\Helpers\CpuModel;
+use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
 use App\Entity\Helpers\ProductName;
+use App\Entity\Helpers\Type;
+use App\Entity\Helpers\TypeDep;
 use App\Repository\MinionRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -75,6 +78,24 @@ class Minion
      * @ORM\Column(type="text", nullable=true)
      */
     private $user_phone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeDep::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type_dep;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Department::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $department;
 
     public function __construct(UuidInterface $uuid)
     {
@@ -213,6 +234,42 @@ class Minion
     public function setUserPhone(?string $user_phone): self
     {
         $this->user_phone = $user_phone;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTypeDep(): ?TypeDep
+    {
+        return $this->type_dep;
+    }
+
+    public function setTypeDep(?TypeDep $type_dep): self
+    {
+        $this->type_dep = $type_dep;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
 
         return $this;
     }

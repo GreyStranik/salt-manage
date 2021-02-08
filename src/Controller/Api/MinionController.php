@@ -3,8 +3,11 @@
 namespace App\Controller\Api;
 
 use App\Entity\Helpers\CpuModel;
+use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
 use App\Entity\Helpers\ProductName;
+use App\Entity\Helpers\Type;
+use App\Entity\Helpers\TypeDep;
 use App\Entity\Minion;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +84,36 @@ class MinionController extends AbstractController
 
         $minion->setFioUser($data['fio_user']);
         $minion->setUserPhone($data['user_phone']);
+
+        $type = $this->getDoctrine()->getRepository(Type::class)->findOneBy([
+            'name' => $data['type']
+        ]);
+        if (!$type){
+            $type = new Type();
+            $type->setName($data['type']);
+            $em->persist($type);
+        }
+        $minion->setType($type);
+
+        $type_dep = $this->getDoctrine()->getRepository(TypeDep::class)->findOneBy([
+            'name' => $data['type_dep']
+        ]);
+        if (!$type_dep){
+            $type_dep = new TypeDep();
+            $type_dep->setName($data['type_dep']);
+            $em->persist($type_dep);
+        }
+        $minion->setTypeDep($type_dep);
+
+        $department = $this->getDoctrine()->getRepository(Department::class)->findOneBy([
+            'name' => $data['department']
+        ]);
+        if(!$department){
+            $department = new Department();
+            $department->setName($data['department']);
+            $em->persist($department);
+        }
+        $minion->setDepartment($department);
 
         $em->persist($minion);
         $em->flush();
