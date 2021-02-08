@@ -79,6 +79,9 @@ class MinionController extends AbstractController
         }
         $minion->setProductName($product_name);
 
+        $minion->setFioUser($data['fio_user']);
+        $minion->setUserPhone($data['user_phone']);
+
         $em->persist($minion);
         $em->flush();
 

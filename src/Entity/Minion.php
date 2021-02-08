@@ -66,6 +66,16 @@ class Minion
      */
     private $product_name;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $fio_user;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $user_phone;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
@@ -179,6 +189,30 @@ class Minion
     public function setProductName(?ProductName $product_name): self
     {
         $this->product_name = $product_name;
+
+        return $this;
+    }
+
+    public function getFioUser(): ?string
+    {
+        return $this->fio_user;
+    }
+
+    public function setFioUser(?string $fio_user): self
+    {
+        $this->fio_user = $fio_user;
+
+        return $this;
+    }
+
+    public function getUserPhone(): ?string
+    {
+        return $this->user_phone;
+    }
+
+    public function setUserPhone(?string $user_phone): self
+    {
+        $this->user_phone = $user_phone;
 
         return $this;
     }
