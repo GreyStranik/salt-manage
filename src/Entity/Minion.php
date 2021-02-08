@@ -101,6 +101,11 @@ class Minion
      */
     private $department;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $saltversion;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
@@ -274,6 +279,18 @@ class Minion
     public function setDepartment(?Department $department): self
     {
         $this->department = $department;
+
+        return $this;
+    }
+
+    public function getSaltversion(): ?string
+    {
+        return $this->saltversion;
+    }
+
+    public function setSaltversion(string $saltversion): self
+    {
+        $this->saltversion = $saltversion;
 
         return $this;
     }
