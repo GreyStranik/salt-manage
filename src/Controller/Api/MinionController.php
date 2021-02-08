@@ -116,6 +116,7 @@ class MinionController extends AbstractController
         $minion->setDepartment($department);
 
         $minion->setSaltversion($data['saltversion']);
+        $minion->setMemTotal($data['mem_total']);
 
         $em->persist($minion);
         $em->flush();

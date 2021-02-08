@@ -106,6 +106,11 @@ class Minion
      */
     private $saltversion;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $mem_total;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
@@ -291,6 +296,18 @@ class Minion
     public function setSaltversion(string $saltversion): self
     {
         $this->saltversion = $saltversion;
+
+        return $this;
+    }
+
+    public function getMemTotal(): ?int
+    {
+        return $this->mem_total;
+    }
+
+    public function setMemTotal(int $mem_total): self
+    {
+        $this->mem_total = $mem_total;
 
         return $this;
     }
