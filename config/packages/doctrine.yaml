@@ -8,6 +8,8 @@ doctrine:
         types:
             uuid: Ramsey\Uuid\Doctrine\UuidType
             datetime: Doctrine\DBAL\Types\DateTimeTzType
+            inet: Doctrine\DBAL\PostgresTypes\InetType
+            macaddr: Doctrine\DBAL\PostgresTypes\MacAddrType
 
     orm:
         auto_generate_proxy_classes: true

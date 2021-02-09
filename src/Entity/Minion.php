@@ -10,6 +10,8 @@ use App\Entity\Helpers\Type;
 use App\Entity\Helpers\TypeDep;
 use App\Repository\MinionRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -111,9 +113,15 @@ class Minion
      */
     private $mem_total;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Network::class, mappedBy="minion")
+     */
+    private $networks;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
+        $this->networks = new ArrayCollection();
     }
 
     /**
@@ -308,6 +316,36 @@ class Minion
     public function setMemTotal(int $mem_total): self
     {
         $this->mem_total = $mem_total;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Network[]
+     */
+    public function getNetworks(): Collection
+    {
+        return $this->networks;
+    }
+
+    public function addNetwork(Network $network): self
+    {
+        if (!$this->networks->contains($network)) {
+            $this->networks[] = $network;
+            $network->setMinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNetwork(Network $network): self
+    {
+        if ($this->networks->removeElement($network)) {
+            // set the owning side to null (unless already changed)
+            if ($network->getMinion() === $this) {
+                $network->setMinion(null);
+            }
+        }
 
         return $this;
     }

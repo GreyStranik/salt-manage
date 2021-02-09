@@ -8,7 +8,10 @@ use App\Entity\Helpers\Manufacturer;
 use App\Entity\Helpers\ProductName;
 use App\Entity\Helpers\Type;
 use App\Entity\Helpers\TypeDep;
+use App\Entity\IPs;
 use App\Entity\Minion;
+use App\Entity\Network;
+use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +39,7 @@ class MinionController extends AbstractController
      * @Route("/{uuid}", name="update_minion_data", methods={"POST"})
      * @return Response
      */
-    public function update_minion_data($uuid, Request $request): Response
+    public function update_minion_data($uuid, Request $request, LoggerInterface $logger): Response
     {
         $data = json_decode($request->getContent(), true);
 
@@ -117,6 +120,54 @@ class MinionController extends AbstractController
 
         $minion->setSaltversion($data['saltversion']);
         $minion->setMemTotal($data['mem_total']);
+
+
+        $old_networks = $minion->getNetworks();
+        foreach ($old_networks as $old_network){
+            $intrfs = $old_network->getInterface();
+            if (!array_key_exists($intrfs,$data['network'])){
+                //$minion->removeNetwork($old_network)
+                $em->remove($old_network);
+            }
+        }
+
+        foreach ($data['network'] as $interface => $network_data){
+
+            $network = $this->getDoctrine()->getRepository(Network::class)->findOneBy([
+                'interface' => $interface,
+                'minion' => $minion
+            ]);
+            if (!$network){
+                $network = new Network();
+                $network->setInterface($interface)->setMacAddress($network_data['mac'])->setMinion($minion);
+            }
+            $network->setMacAddress($network_data['mac']);
+
+
+            $old_ips = $network->getIps();
+
+            foreach ($old_ips as $old_ip){
+                if (!in_array($old_ip->getIpAddress(),$network_data["ips"])){
+                    $em->remove($old_ip);
+                }
+            }
+
+            foreach ($network_data['ips'] as $ip_value){
+                $ip = $this->getDoctrine()->getRepository(IPs::class)->findOneBy([
+                    'network' => $network,
+                    'ip_address' => $ip_value
+                ]);
+                if (!$ip){
+                    $ip = new IPs();
+                    $ip->setNetwork($network)->setIpAddress($ip_value);
+                }
+                $em->persist($ip);
+
+            }
+
+            $em->persist($network);
+        }
+
 
         $em->persist($minion);
         $em->flush();
