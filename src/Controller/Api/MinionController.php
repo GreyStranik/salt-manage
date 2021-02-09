@@ -6,8 +6,10 @@ use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
 use App\Entity\Helpers\ProductName;
+use App\Entity\Helpers\Soft;
 use App\Entity\Helpers\Type;
 use App\Entity\Helpers\TypeDep;
+use App\Entity\InstalledSoftware;
 use App\Entity\IPs;
 use App\Entity\Minion;
 use App\Entity\Network;
@@ -166,6 +168,40 @@ class MinionController extends AbstractController
             }
 
             $em->persist($network);
+        }
+
+        $pkg_info = $data['pkg_info'];
+
+        $old_packages = $minion->getInstalledSoftware();
+        foreach ($old_packages as $old_package){
+            $pkg_name = $old_package->getSoft()->getName();
+            if (!array_search($pkg_name,array_column($pkg_info,'name'))){
+                $em->remove($old_package);
+            }
+        }
+
+        foreach ($pkg_info as $package){
+
+            $soft = $this->getDoctrine()->getRepository(Soft::class)->findOneBy([
+                'name' => $package['name']
+            ]);
+            if (!$soft){
+                $soft = new Soft();
+                $soft->setName($package['name']);
+                $em->persist($soft);
+            }
+
+            $installed = $this->getDoctrine()->getRepository(InstalledSoftware::class)->findOneBy([
+                'minion' => $minion,
+                'soft' => $soft
+            ]);
+            if (!$installed){
+                $installed = new InstalledSoftware();
+                $installed->setMinion($minion)->setSoft($soft);
+            }
+            $installed->setSize($package['size'])->setVersion($package['version']);
+            $em->persist($installed);
+
         }
 
 

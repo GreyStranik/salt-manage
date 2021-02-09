@@ -10,6 +10,9 @@ doctrine:
             datetime: Doctrine\DBAL\Types\DateTimeTzType
             inet: Doctrine\DBAL\PostgresTypes\InetType
             macaddr: Doctrine\DBAL\PostgresTypes\MacAddrType
+        mapping_types:
+            inet: inet
+            macaddr: macaddr
 
     orm:
         auto_generate_proxy_classes: true

@@ -118,10 +118,16 @@ class Minion
      */
     private $networks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=InstalledSoftware::class, mappedBy="minion")
+     */
+    private $installedSoftware;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
         $this->networks = new ArrayCollection();
+        $this->installedSoftware = new ArrayCollection();
     }
 
     /**
@@ -344,6 +350,36 @@ class Minion
             // set the owning side to null (unless already changed)
             if ($network->getMinion() === $this) {
                 $network->setMinion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|InstalledSoftware[]
+     */
+    public function getInstalledSoftware(): Collection
+    {
+        return $this->installedSoftware;
+    }
+
+    public function addInstalledSoftware(InstalledSoftware $installedSoftware): self
+    {
+        if (!$this->installedSoftware->contains($installedSoftware)) {
+            $this->installedSoftware[] = $installedSoftware;
+            $installedSoftware->setMinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInstalledSoftware(InstalledSoftware $installedSoftware): self
+    {
+        if ($this->installedSoftware->removeElement($installedSoftware)) {
+            // set the owning side to null (unless already changed)
+            if ($installedSoftware->getMinion() === $this) {
+                $installedSoftware->setMinion(null);
             }
         }
 
