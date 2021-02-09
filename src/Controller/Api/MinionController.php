@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Disk;
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
@@ -204,6 +205,35 @@ class MinionController extends AbstractController
 
         }
 
+        $old_disks = $minion->getDisks();
+        $logger->debug('INFO DISK === ',$data['disk_info']);
+        foreach ($old_disks as $old_disk){
+            $disk_name = $old_disk->getName();
+            $logger->debug(
+                'DISK_NAME'.$disk_name
+            );
+            if (!array_key_exists($disk_name,$data['disk_info'])){
+                $em->remove($old_disk);
+            }
+        }
+
+        foreach ($data['disk_info'] as $disk_name => $disk_info){
+            $disk = $this->getDoctrine()->getRepository(Disk::class)->findOneBy([
+                'minion' => $minion,
+                'name' =>$disk_name
+            ]);
+            if(!$disk){
+                $disk = new Disk();
+                $disk->setName($disk_name)->setMinion($minion);
+            }
+            $disk->setAvailable($disk_info['available'])
+                ->setCapacity($disk_info['capacity'])
+                ->setBlocks($disk_info['1K-blocks'])
+                ->setFilesystem($disk_info['filesystem'])
+                ->setUsed($disk_info['used']);
+
+            $em->persist($disk);
+        }
 
         $em->persist($minion);
         $em->flush();

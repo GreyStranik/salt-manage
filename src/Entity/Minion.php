@@ -123,11 +123,17 @@ class Minion
      */
     private $installedSoftware;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Disk::class, mappedBy="minion")
+     */
+    private $disks;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
         $this->networks = new ArrayCollection();
         $this->installedSoftware = new ArrayCollection();
+        $this->disks = new ArrayCollection();
     }
 
     /**
@@ -380,6 +386,36 @@ class Minion
             // set the owning side to null (unless already changed)
             if ($installedSoftware->getMinion() === $this) {
                 $installedSoftware->setMinion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Disk[]
+     */
+    public function getDisks(): Collection
+    {
+        return $this->disks;
+    }
+
+    public function addDisk(Disk $disk): self
+    {
+        if (!$this->disks->contains($disk)) {
+            $this->disks[] = $disk;
+            $disk->setMinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDisk(Disk $disk): self
+    {
+        if ($this->disks->removeElement($disk)) {
+            // set the owning side to null (unless already changed)
+            if ($disk->getMinion() === $this) {
+                $disk->setMinion(null);
             }
         }
 
