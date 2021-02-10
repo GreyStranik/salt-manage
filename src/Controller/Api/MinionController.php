@@ -6,6 +6,8 @@ use App\Entity\Disk;
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
+use App\Entity\Helpers\Os;
+use App\Entity\Helpers\OsFullName;
 use App\Entity\Helpers\ProductName;
 use App\Entity\Helpers\Soft;
 use App\Entity\Helpers\Type;
@@ -77,6 +79,27 @@ class MinionController extends AbstractController
         }
         $minion->setCpuModel($cpu_model);
 
+        $minion->setOsrelease($data['osrelease']);
+
+        $os = $this->getDoctrine()->getRepository(Os::class)->findOneBy([
+            'name' => $data['os']
+        ]);
+        if (!$os){
+            $os = new Os();
+            $os->setName($data['os']);
+            $em->persist($os);
+        }
+        $minion->setOs($os);
+
+        $os_full_name = $this->getDoctrine()->getRepository(OsFullName::class)->findOneBy([
+            'name' => $data['osfullname']
+        ]);
+        if (!$os_full_name){
+            $os_full_name = new OsFullName();
+            $os_full_name->setName($data['osfullname']);
+            $em->persist($os_full_name);
+        }
+        $minion->setOsFullName($os_full_name);
 
         $product_name = $this->getDoctrine()->getRepository(ProductName::class)->findOneBy([
             'name' => $data['productname']

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
+use App\Entity\Helpers\Os;
+use App\Entity\Helpers\OsFullName;
 use App\Entity\Helpers\ProductName;
 use App\Entity\Helpers\Type;
 use App\Entity\Helpers\TypeDep;
@@ -13,6 +15,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\Uuid;
@@ -20,6 +23,9 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass=MinionRepository::class)
+ * @ORM\Table(name="minion", indexes={
+ *          @Index(name="idx_minion_os_release", columns={"osrelease"})
+ *     })
  */
 class Minion
 {
@@ -127,6 +133,21 @@ class Minion
      * @ORM\OneToMany(targetEntity=Disk::class, mappedBy="minion")
      */
     private $disks;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $osrelease;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Os::class, inversedBy="minions")
+     */
+    private $os;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=OsFullName::class, inversedBy="minions")
+     */
+    private $os_full_name;
 
     public function __construct(UuidInterface $uuid)
     {
@@ -418,6 +439,42 @@ class Minion
                 $disk->setMinion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOsrelease(): ?string
+    {
+        return $this->osrelease;
+    }
+
+    public function setOsrelease(?string $osrelease): self
+    {
+        $this->osrelease = $osrelease;
+
+        return $this;
+    }
+
+    public function getOs(): ?Os
+    {
+        return $this->os;
+    }
+
+    public function setOs(?Os $os): self
+    {
+        $this->os = $os;
+
+        return $this;
+    }
+
+    public function getOsFullName(): ?OsFullName
+    {
+        return $this->os_full_name;
+    }
+
+    public function setOsFullName(?OsFullName $os_full_name): self
+    {
+        $this->os_full_name = $os_full_name;
 
         return $this;
     }
