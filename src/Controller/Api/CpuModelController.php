@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CpuModelController extends AbstractController
 {
     /**
-     * @Route("/api/cpu/model", name="api_cpu_model")
+     * @Route("/", name="api_cpu_model", methods={"GET"})
      */
     public function index(): Response
     {
