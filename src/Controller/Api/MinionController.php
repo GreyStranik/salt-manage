@@ -268,4 +268,14 @@ class MinionController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/info", name="minion_info", methods={"GET"})
+     * @return Response
+     */
+    public function info(): Response{
+        $d = $this->getDoctrine()->getRepository(Minion::class)->count_info();
+
+        return $this->json($d);
+    }
 }

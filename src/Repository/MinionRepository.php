@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Minion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,32 @@ class MinionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Minion::class);
+    }
+
+    function count_info(){
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
+        $count = $this->getEntityManager()
+            ->createNativeQuery("SELECT count(1) count FROM public.minion ",$rsm)
+            ->getSingleResult();
+
+        $count_today = $this->getEntityManager()
+            ->createNativeQuery("SELECT count(1) count
+                        FROM public.minion
+                        where date_trunc('day',updated_at)=CURRENT_DATE",$rsm)
+            ->getSingleResult();
+
+        $count_low_month = $this->getEntityManager()
+            ->createNativeQuery("SELECT count(1) count
+                        FROM public.minion
+                        where date_trunc('day',updated_at)<CURRENT_DATE-'1 month'::interval",$rsm)
+            ->getSingleResult();
+//
+        return [
+            'count_all' => $count['count'],
+            'count_today' => $count_today['count'],
+            'count_low_month' => $count_low_month['count']
+        ];
     }
 
     // /**
