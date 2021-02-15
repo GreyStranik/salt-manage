@@ -5,6 +5,7 @@ import {createStyles, makeStyles} from "@material-ui/core/styles";
 import InfoCard from "../cards/InfoCard";
 import CpuCard from "../cards/CpuCard";
 import DepartmentsCard from "../cards/DepartmentsCard";
+import TypeCard from "../cards/TypeCards";
 
 function Dashboard() {
 
@@ -34,6 +35,8 @@ function Dashboard() {
                         <InfoCard />
                         <CpuCard/>
                         <DepartmentsCard/>
+
+                        <TypeCard />
 
                     </Grid>
                 </Grid>

@@ -22,4 +22,15 @@ class TypeController extends AbstractController
         $types = $typeRepository->findAll();
         return $this->json($types);
     }
+
+    /**
+     * @Route("/type_statistic", name="type_statistic", methods={"GET"})
+     * @param TypeRepository $typeRepository
+     * @return Response
+     */
+    public function type_statistic(TypeRepository $typeRepository): Response
+    {
+        $data = $typeRepository->type_statistic();
+        return $this->json($data);
+    }
 }
