@@ -3,6 +3,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 import InfoCard from "../cards/InfoCard";
+import CpuCard from "../cards/CpuCard";
 
 function Dashboard() {
 
@@ -30,6 +31,7 @@ function Dashboard() {
                     <Grid container spacing={2}>
 
                         <InfoCard />
+                        <CpuCard/>
 
                     </Grid>
                 </Grid>

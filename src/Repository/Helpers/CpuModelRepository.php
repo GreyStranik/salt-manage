@@ -4,7 +4,9 @@ namespace App\Repository\Helpers;
 
 use App\Entity\Helpers\CpuModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 
 /**
  * @method CpuModel|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,22 @@ class CpuModelRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CpuModel::class);
+    }
+
+    public function cpu_static(){
+        $str = "SELECT cpu_model.name cpu_model, count(1) as cn
+                FROM helpers.cpu_model
+                left join minion ON minion.cpu_model_id=cpu_model.id
+                group by cpu_model.name";
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('cpu_model', 'name');
+        $rsm->addScalarResult('cn','value');
+
+        $data = $this->getEntityManager()->createNativeQuery($str,$rsm)->getResult();
+
+        return $data;
+
     }
 
     // /**

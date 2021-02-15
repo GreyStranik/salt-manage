@@ -22,4 +22,15 @@ class CpuModelController extends AbstractController
         $cpu = $this->getDoctrine()->getRepository(CpuModel::class)->findAll();
         return $this->json($cpu);
     }
+
+    /**
+     * @return Response
+     * @Route("/cpu_static", name="cpu_static", methods={"GET"})
+     */
+    public function cpu_static():Response
+    {
+        $data = $this->getDoctrine()->getRepository(CpuModel::class)->cpu_static();
+
+        return $this->json($data);
+    }
 }
