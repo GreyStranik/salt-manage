@@ -29,4 +29,15 @@ class DepartmentController extends AbstractController
 
         return $this->json($departments);
     }
+
+    /**
+     * @Route("/departments_static", name="departments_static", methods={"GET"})
+     * @param DepartmentRepository $departmentRepository
+     * @return Response
+     */
+    public function departments_static(DepartmentRepository $departmentRepository) : Response
+    {
+        $info = $departmentRepository->departments_static();
+        return $this->json($info);
+    }
 }
