@@ -20,6 +20,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=MinionRepository::class)
@@ -66,18 +67,21 @@ class Minion
     /**
      * @ORM\ManyToOne(targetEntity=Manufacturer::class, inversedBy="minions")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(2)
      */
     private $manufacturer;
 
     /**
      * @ORM\ManyToOne(targetEntity=CpuModel::class)
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(2)
      */
     private $cpu_model;
 
     /**
      * @ORM\ManyToOne(targetEntity=ProductName::class, inversedBy="minions")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(2)
      */
     private $product_name;
 
@@ -94,18 +98,21 @@ class Minion
     /**
      * @ORM\ManyToOne(targetEntity=Type::class)
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(2)
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeDep::class)
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(2)
      */
     private $type_dep;
 
     /**
      * @ORM\ManyToOne(targetEntity=Department::class)
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(2)
      */
     private $department;
 
@@ -121,31 +128,37 @@ class Minion
 
     /**
      * @ORM\OneToMany(targetEntity=Network::class, mappedBy="minion")
+     * @MaxDepth(2)
      */
     private $networks;
 
     /**
      * @ORM\OneToMany(targetEntity=InstalledSoftware::class, mappedBy="minion")
+     * @MaxDepth(2)
      */
     private $installedSoftware;
 
     /**
      * @ORM\OneToMany(targetEntity=Disk::class, mappedBy="minion")
+     * @MaxDepth(2)
      */
     private $disks;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @MaxDepth(2)
      */
     private $osrelease;
 
     /**
      * @ORM\ManyToOne(targetEntity=Os::class, inversedBy="minions")
+     * @MaxDepth(2)
      */
     private $os;
 
     /**
      * @ORM\ManyToOne(targetEntity=OsFullName::class, inversedBy="minions")
+     * @MaxDepth(2)
      */
     private $os_full_name;
 

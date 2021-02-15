@@ -16,12 +16,17 @@ use App\Entity\InstalledSoftware;
 use App\Entity\IPs;
 use App\Entity\Minion;
 use App\Entity\Network;
+use App\Repository\Helpers\DepartmentRepository;
+use App\Repository\MinionRepository;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class MinionController
@@ -33,11 +38,44 @@ class MinionController extends AbstractController
     /**
      * @Route("/", name="api_get_all_minion", methods={"GET"})
      */
-    public function index(): Response
+    public function index(MinionRepository $minionRepository): Response
     {
-        $minions =$this->getDoctrine()->getRepository(Minion::class)->findAll();
+        $minions = $minionRepository->findAll();
 
-        return $this->json($minions);
+//        $normalizer = new ObjectNormalizer();
+//        $serializer = new Serializer([$normalizer]);
+//
+//        $result = $serializer->normalize($minions, null, [AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true]);
+//        return $this->json($minions);
+        $data = [];
+        foreach ($minions as $minion){
+            $networks = $minion->getNetworks();
+            $str_network = [];
+            $str_mac = [];
+            foreach ($networks as $network){
+                $ips = $network->getIps();
+                foreach ($ips as $ip){
+                    array_push($str_network,$ip->getIpAddress());
+                }
+                array_push($str_mac, $network->getMacAddress()) ;
+            }
+            $item = [
+                'id'  => $minion->getId(),
+                'node_name' => $minion->getNodeName(),
+                'selialnumber' => $minion->getSelialnumber(),
+                'room' => $minion->getRoom(),
+                'manufacturer' =>$minion->getManufacturer()->getName(),
+                'cpu_model' => $minion->getCpuModel()->getName(),
+
+                'fio_user' => $minion->getFioUser(),
+                'user_phone' => $minion->getUserPhone(),
+                'ip' => implode(", ",$str_network),
+                'mac' => implode(', ', $str_mac)
+            ];
+            array_push($data,$item);
+        }
+
+        return $this->json($data);
     }
 
     /**
