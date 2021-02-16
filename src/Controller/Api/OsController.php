@@ -29,4 +29,16 @@ class OsController extends AbstractController
         }
         return $this->json($oss);
     }
+
+    /**
+     * @Route("/os_static", name="os_static", methods={"GET"})
+     * @param OsRepository $osRepository
+     * @return Response
+     */
+    public function os_static(OsRepository $osRepository): Response
+    {
+        $data = $osRepository->os_static();
+        return $this->json($data);
+    }
+
 }
