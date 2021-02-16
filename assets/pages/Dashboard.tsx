@@ -7,6 +7,7 @@ import CpuCard from "../cards/CpuCard";
 import DepartmentsCard from "../cards/DepartmentsCard";
 import TypeCard from "../cards/TypeCards";
 import OsCard from "../cards/OsCard";
+import ManufacturerCard from "../cards/ManufacturerCard";
 
 function Dashboard() {
 
@@ -39,6 +40,7 @@ function Dashboard() {
 
                         <TypeCard />
                         <OsCard/>
+                        <ManufacturerCard />
 
                     </Grid>
                 </Grid>
