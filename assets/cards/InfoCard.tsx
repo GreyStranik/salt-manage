@@ -42,7 +42,7 @@ export default function InfoCard(){
 
                 <CardContent>
                     <Typography variant={"body1"} component={"p"}>
-                        Общее количество миньенов: <span className={classes.num}>{minionsCount.count_all}</span>
+                        Общее количество миньонов: <span className={classes.num}>{minionsCount.count_all}</span>
                     </Typography>
                     <Typography variant={"body1"} component={"p"}>
                         Обновлено сегодня: <span className={classes.num}>{minionsCount.count_today}</span>
