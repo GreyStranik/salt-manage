@@ -1,13 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
+import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps} from '@material-ui/data-grid';
+import {RU_LOCALE_TEXT} from "../components/addons/grid_ru";
+
+const columns: ColDef[] = [
+    { field: 'node_name', headerName: 'Компьютер', flex: 1 },
+    { field: 'selialnumber', headerName: 'Серийный номер', width: 180 },
+    { field: 'ip', headerName: 'IP адрес', width: 210},
+    { field: 'mac', headerName: 'MAC адрес', width: 210},
+    { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1},
+    { field: 'user_phone', headerName: 'Телефон', width: 200},
+    { field: 'room', headerName: 'Кабинет', width: 180}
+];
 
 function Minions() {
+
+    const [minions,setMinions] = useState<RowsProp>([])
+
+    const [loading, setLoading] = useState(true)
+
+    useEffect(()=>{
+        setLoading(true);
+        fetch('/api/minion/').then(response=>response.json()).then(result=>{
+            setLoading(false)
+            setMinions(result)
+        })
+    },[])
+
     return (
         <>
             <Grid container  direction={"row"}>
 
                 <Grid item xs={12}>
-                    <h1>Зарегистрированные компьютеры</h1>
+                    <h2>Зарегистрированные компьютеры</h2>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <div style={{ height: '78vh', width: '100%' }}>
+                        <DataGrid rows={minions}
+                                  columns={columns}
+                                  pageSize={12}
+                                  checkboxSelection={false}
+                                  localeText={RU_LOCALE_TEXT}
+                                  loading={loading}
+                                  // hideFooterPagination={true}
+                        />
+                    </div>
+
                 </Grid>
             </Grid>
 
