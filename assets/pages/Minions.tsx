@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
-import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps} from '@material-ui/data-grid';
+import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps, StateChangeParams} from '@material-ui/data-grid';
 import {RU_LOCALE_TEXT} from "../components/addons/grid_ru";
 
 const columns: ColDef[] = [
@@ -39,10 +39,13 @@ function Minions() {
                     <div style={{ height: '78vh', width: '100%' }}>
                         <DataGrid rows={minions}
                                   columns={columns}
-                                  pageSize={12}
+                                  // pageSize={12}
+                                  autoPageSize={true}
                                   checkboxSelection={false}
                                   localeText={RU_LOCALE_TEXT}
                                   loading={loading}
+                                  // onStateChange={onStateChange}
+                                  density={"compact"}
                                   // hideFooterPagination={true}
                         />
                     </div>
