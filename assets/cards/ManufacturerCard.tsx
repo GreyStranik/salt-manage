@@ -12,7 +12,7 @@ export default function ManufacturerCard(){
     const [data, setData] = useState<ChartDataItem[]>([])
 
     useEffect(()=>{
-        fetch("/api/os/os_static").then(response=>response.json()).then(result=>setData(result))
+        fetch("/api/manufacturer/manufacturer_static").then(response=>response.json()).then(result=>setData(result))
     },[])
 
     return (
