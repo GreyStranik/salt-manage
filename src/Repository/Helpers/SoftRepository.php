@@ -4,6 +4,7 @@ namespace App\Repository\Helpers;
 
 use App\Entity\Helpers\Soft;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,25 @@ class SoftRepository extends ServiceEntityRepository
         parent::__construct($registry, Soft::class);
     }
 
+    public function soft_static(){
+        $str = "with installed as ( SELECT 
+          count(1) OVER (PARTITION BY soft_id) cn,
+           soft_id
+            FROM public.installed_software
+        )
+        select distinct soft.id, soft.name, installed.cn from helpers.soft
+        left join installed on installed.soft_id=soft.id
+        where cn is not null
+            order by soft.name";
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult("id","id");
+        $rsm->addScalarResult("name","name");
+        $rsm->addScalarResult("cn", "count");
+
+        $data = $this->getEntityManager()->createNativeQuery($str,$rsm)->getResult();
+
+        return $data;
+    }
     // /**
     //  * @return Soft[] Returns an array of Soft objects
     //  */
