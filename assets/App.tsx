@@ -18,6 +18,7 @@ import {
 import Dashboard from "./pages/Dashboard"
 import Minions from "./pages/Minions";
 import Programms from "./pages/Programms";
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
     const classes = useStyles();
 
     return (
-        <div style={{display: "flex"}}>
+        <div style={{display: "flex", minHeight: '100vh'}}>
             <XAppBar/>
             <SidePanel />
 
@@ -39,10 +40,13 @@ function App() {
                 <Toolbar  />
 
                 <Switch>
-                    <Route path={"/dashboard"} component={Dashboard} />
-                    <Route path={"/minions"} component={Minions} />
-                    <Route path={"/programms"} component={Programms} />
-                    <Redirect to={"/dashboard"} from={"/"} />
+                    <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+                    <Route exact={true} path={"/dashboard"} component={Dashboard} />
+                    <Route exact={true} path={"/minions"} component={Minions} />
+                    <Route exact={true} path={"/programms"} component={Programms} />
+                    <Route path={'*'} component={NotFound} />
+                    {/*<Redirect to={"/dashboard"} from={"/"} />*/}
+
                 </Switch>
 
             </main>
