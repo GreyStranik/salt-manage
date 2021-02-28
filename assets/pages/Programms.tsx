@@ -10,12 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
 import {makeStyles } from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-
-interface ProgrammItemName {
-    id: string,
-    name: string,
-    count: number
-}
+import {ProgrammItemName} from "../interfaces/ProgrammItemName";
+import SoftInfoCard from "../cards/SoftInfoCard";
 
 function Programms() {
 
@@ -23,11 +19,6 @@ function Programms() {
         find : {
             marginBottom: theme.spacing(4)
         },
-        info : {
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end'
-        }
     }))
 
     const classes = useStyles()
@@ -74,27 +65,9 @@ function Programms() {
                             return (
 
                                 <Grid item key={item.id} xs={6} sm={3} md={2} >
-                                    <Card>
-                                        <CardActionArea key={item.id}>
-                                            <CardContent>
-                                                <Typography
-                                                    variant={"h5"}
-                                                    color={"textPrimary"}
-                                                >
-                                                    {item.name}
-                                                </Typography>
-                                                <div className={classes.info}>
-                                                    <Typography variant={"body1"} color={"textSecondary"}>
-                                                        Количество установок
-                                                    </Typography>
-                                                    <Typography variant={"h3"} color={"primary"}>
-                                                        {item.count}
-                                                    </Typography>
-                                                </div>
 
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
+                                    <SoftInfoCard {...item} />
+
                                 </Grid>
                             )
                         })
