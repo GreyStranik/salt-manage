@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps, StateChangeParams} from '@material-ui/data-grid';
 import {RU_LOCALE_TEXT} from "../components/addons/grid_ru";
+import {renderCellExpand} from "../components/addons/GridCellExpand"
 
 const columns: ColDef[] = [
     { field: 'node_name', headerName: 'Компьютер', flex: 1 },
     { field: 'selialnumber', headerName: 'Серийный номер', width: 180 },
-    { field: 'ip', headerName: 'IP адрес', width: 210},
-    { field: 'mac', headerName: 'MAC адрес', width: 210},
+    { field: 'ip', headerName: 'IP адрес', width: 210, renderCell: renderCellExpand},
+    { field: 'mac', headerName: 'MAC адрес', width: 210, renderCell: renderCellExpand},
     { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1},
     { field: 'user_phone', headerName: 'Телефон', width: 200},
     { field: 'room', headerName: 'Кабинет', width: 180}
