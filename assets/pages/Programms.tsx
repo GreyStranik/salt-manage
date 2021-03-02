@@ -12,6 +12,8 @@ import {makeStyles } from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import {ProgrammItemName} from "../interfaces/ProgrammItemName";
 import SoftInfoCard from "../cards/SoftInfoCard";
+import {VirtuosoGrid} from "react-virtuoso";
+import styled from "styled-components";
 
 function Programms() {
 
@@ -19,7 +21,43 @@ function Programms() {
         find : {
             marginBottom: theme.spacing(4)
         },
+        gridItem : {
+            display: 'flex',
+            flexWrap: 'wrap',
+            // height: '80vh'
+        }
     }))
+
+    const ItemContainer = styled.div`
+    padding: 0.5rem;
+    width: 25%;
+    display: flex;
+    flex: none;
+    align-content: stretch;
+
+    @media (max-width: 1024px) {
+      width: 50%;
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
+  `
+
+    const ItemWrapper = styled.div`
+    flex: 1;
+    text-align: center;
+    font-size: 20px;
+    padding: 1rem 1rem;
+    // border: 1px solid red;
+    // white-space: nowrap;
+    // background-color: white
+  `
+
+    const ListContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+  `
 
     const classes = useStyles()
 
@@ -58,21 +96,43 @@ function Programms() {
                 </Grid>
             {/*</Container>*/}
                 <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                    {
-                        data.filter(item => item.name.toLowerCase().includes(find)).map(item =>{
 
-                            return (
-
-                                <Grid item key={item.id} xs={6} sm={3} md={2} >
-
-                                    <SoftInfoCard {...item} />
-
-                                </Grid>
+                    <VirtuosoGrid
+                        totalCount={data.filter(item => item.name.toLowerCase().includes(find)).length}
+                        overscan={10}
+                        style={{ height: '70vh', width: '100%' }}
+                        components={{
+                            Item: ItemContainer,
+                            List: ListContainer,
+                            ScrollSeekPlaceholder: (props, context) => (
+                                <ItemContainer>
+                                    <ItemWrapper>Загрузка</ItemWrapper>
+                                </ItemContainer>
                             )
-                        })
-                    }
-                    </Grid>
+                        }}
+
+                        itemContent={index => {
+                                const soft_info = data.filter(item => item.name.toLowerCase().includes(find))[index]
+                                return (
+                                    <ItemWrapper>
+                                        <SoftInfoCard {...soft_info} />
+                                    </ItemWrapper>
+                                )
+                            }
+                        }
+                        scrollSeekConfiguration={{
+                            enter: velocity => Math.abs(velocity) > 200,
+                            exit: velocity => Math.abs(velocity) < 30,
+                            change: (_, range) => console.log({ range }),
+                        }}
+                    />
+
+                    {/*<Virtuoso*/}
+                    {/*    style={{ height: '200px' }}*/}
+                    {/*    totalCount={200}*/}
+                    {/*    itemContent={index => <div>Item {index}</div>}*/}
+                    {/*/>*/}
+
                 </Grid>
             </Grid>
         </>
