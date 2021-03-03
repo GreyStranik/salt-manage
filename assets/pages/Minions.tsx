@@ -13,7 +13,22 @@ const columns: ColDef[] = [
     { field: 'mac', headerName: 'MAC адрес', width: 210, renderCell: renderCellExpand},
     { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1},
     { field: 'user_phone', headerName: 'Телефон', width: 200},
-    { field: 'room', headerName: 'Кабинет', width: 180}
+    { field: 'room', headerName: 'Кабинет', width: 180},
+    {
+        field: 'created_at',
+        headerName: 'Создано',
+        width: 180,
+        type:"dateTime",
+        hide:true,
+        valueFormatter: params => new Date(params.value as string).toLocaleString()
+    },
+    {
+        field: 'updated_at',
+        headerName: 'Обновлено',
+        width: 180,
+        type:"dateTime",
+        valueFormatter: params => new Date(params.value as string).toLocaleString()
+    }
 ];
 
 function Minions() {

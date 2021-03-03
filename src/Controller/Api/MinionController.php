@@ -70,7 +70,9 @@ class MinionController extends AbstractController
                 'fio_user' => $minion->getFioUser(),
                 'user_phone' => $minion->getUserPhone(),
                 'ip' => implode(", ",$str_network),
-                'mac' => implode(', ', $str_mac)
+                'mac' => implode(', ', $str_mac),
+                'created_at' => $minion->getCreatedAt(),
+                'updated_at' => $minion->getUpdatedAt()
             ];
             array_push($data,$item);
         }
