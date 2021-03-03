@@ -8,6 +8,7 @@ import DepartmentsCard from "../cards/DepartmentsCard";
 import TypeCard from "../cards/TypeCards";
 import OsCard from "../cards/OsCard";
 import ManufacturerCard from "../cards/ManufacturerCard";
+import MinionsInfo from "../components/MinionsInfo";
 
 function Dashboard() {
 
@@ -31,10 +32,12 @@ function Dashboard() {
                     <h1>Панель управления</h1>
                 </Grid>
 
+                <MinionsInfo/>
+
                 <Grid item xs={12} >
                     <Grid container spacing={2}>
 
-                        <InfoCard />
+                        {/*<InfoCard />*/}
                         <CpuCard/>
                         <DepartmentsCard/>
 
