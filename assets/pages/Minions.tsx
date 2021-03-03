@@ -7,27 +7,28 @@ import CustomGridPagination from "../components/addons/CustomGridPagination";
 import NoDataOverlay from "../components/addons/NoDataOverlay";
 
 const columns: ColDef[] = [
-    { field: 'node_name', headerName: 'Компьютер', flex: 1 },
-    { field: 'selialnumber', headerName: 'Серийный номер', width: 180 },
+    { field: 'node_name', headerName: 'Компьютер', flex: 1, renderCell: renderCellExpand },
+    { field: 'selialnumber', headerName: 'Серийный номер', width: 180, renderCell: renderCellExpand },
     { field: 'ip', headerName: 'IP адрес', width: 210, renderCell: renderCellExpand},
     { field: 'mac', headerName: 'MAC адрес', width: 210, renderCell: renderCellExpand},
-    { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1},
-    { field: 'user_phone', headerName: 'Телефон', width: 200},
-    { field: 'room', headerName: 'Кабинет', width: 180},
+    { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1, renderCell: renderCellExpand},
+    { field: 'user_phone', headerName: 'Телефон', width: 200, renderCell: renderCellExpand},
+    { field: 'room', headerName: 'Кабинет', width: 180, renderCell: renderCellExpand},
     {
         field: 'created_at',
         headerName: 'Создано',
         width: 180,
         type:"dateTime",
         hide:true,
-        valueFormatter: params => new Date(params.value as string).toLocaleString()
+        valueFormatter: params => new Date(params.value as string).toLocaleString(),
     },
     {
         field: 'updated_at',
         headerName: 'Обновлено',
         width: 180,
         type:"dateTime",
-        valueFormatter: params => new Date(params.value as string).toLocaleString()
+        valueFormatter: params => new Date(params.value as string).toLocaleString(),
+
     }
 ];
 
