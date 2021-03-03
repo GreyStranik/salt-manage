@@ -17,7 +17,7 @@ export default function DepartmentsCard(){
 
     return (
         <>
-            <Grid item>
+            <Grid item lg={4} md={6} sm={12}>
                 <Card>
                     <CardHeader title={"Подразделения"} subheader={"Подразделения организации"}/>
                     <CardContent>

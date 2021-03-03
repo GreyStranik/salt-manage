@@ -17,7 +17,7 @@ export default function CpuCard(){
 
     return (
         <>
-            <Grid item>
+            <Grid item lg={4} md={6} sm={12}>
                 <Card>
                     <CardHeader title={"CPU"} subheader={"Зоопарк процессоров"}/>
                     <CardContent>

@@ -38,7 +38,7 @@ export default function InfoCard(){
     },[])
 
     return (
-        <Grid item>
+        <Grid item lg={4} md={6} sm={12}>
             <Card>
                 <CardHeader title={"Количество миньонов"}/>
 
@@ -50,7 +50,7 @@ export default function InfoCard(){
                         Обновлено сегодня: <span className={classes.num}>{minionsCount.count_today}</span>
                     </Typography>
                     <Typography>
-                        Недоступны долее 2х недель: <span className={classes.num}>{minionsCount.count_low_2week}</span>
+                        Недоступны более 2х недель: <span className={classes.num}>{minionsCount.count_low_2week}</span>
                     </Typography>
                     <Typography variant={"body1"} component={"p"}>
                         Недоступны более месяца: <span className={classes.num}>{minionsCount.count_low_month}</span>

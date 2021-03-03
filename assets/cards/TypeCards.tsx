@@ -17,7 +17,7 @@ export default function TypeCard(){
 
     return (
         <>
-            <Grid item>
+            <Grid item lg={4} md={6} sm={12}>
                 <Card>
                     <CardHeader title={"Типы"} subheader={"Типы зарегистрированных миньонов"}/>
                     <CardContent>

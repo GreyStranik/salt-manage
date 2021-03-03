@@ -17,7 +17,7 @@ export default function OsCard(){
 
     return (
         <>
-            <Grid item>
+            <Grid item lg={4} md={6} sm={12}>
                 <Card>
                     <CardHeader title={"ОС"} subheader={"Операционные системы установленные на миньонах"}/>
                     <CardContent>
