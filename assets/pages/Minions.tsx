@@ -3,6 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps, StateChangeParams} from '@material-ui/data-grid';
 import {RU_LOCALE_TEXT} from "../components/addons/grid_ru";
 import {renderCellExpand} from "../components/addons/GridCellExpand"
+import CustomGridPagination from "../components/addons/CustomGridPagination";
+import NoDataOverlay from "../components/addons/NoDataOverlay";
 
 const columns: ColDef[] = [
     { field: 'node_name', headerName: 'Компьютер', flex: 1 },
@@ -48,6 +50,10 @@ function Minions() {
                                   // onStateChange={onStateChange}
                                   density={"compact"}
                                   // hideFooterPagination={true}
+                                  components={{
+                                      NoRowsOverlay: NoDataOverlay,
+                                      Pagination : CustomGridPagination
+                                  }}
                         />
                     </div>
 
