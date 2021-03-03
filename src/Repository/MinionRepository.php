@@ -33,6 +33,12 @@ class MinionRepository extends ServiceEntityRepository
                         where date_trunc('day',updated_at)=CURRENT_DATE",$rsm)
             ->getSingleResult();
 
+        $count_low_2week = $this->getEntityManager()
+            ->createNativeQuery("SELECT count(1) count
+                        FROM public.minion
+                        where date_trunc('day',updated_at)<CURRENT_DATE-'14 day'::interval",$rsm)
+            ->getSingleResult();
+
         $count_low_month = $this->getEntityManager()
             ->createNativeQuery("SELECT count(1) count
                         FROM public.minion
@@ -42,6 +48,7 @@ class MinionRepository extends ServiceEntityRepository
         return [
             'count_all' => $count['count'],
             'count_today' => $count_today['count'],
+            'count_low_2week' => $count_low_2week['count'],
             'count_low_month' => $count_low_month['count']
         ];
     }

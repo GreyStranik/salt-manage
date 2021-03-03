@@ -11,6 +11,7 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 interface MinionCount {
     count_all : number,
     count_today : number,
+    count_low_2week : number,
     count_low_month : number
 }
 
@@ -28,6 +29,7 @@ export default function InfoCard(){
     const [minionsCount,setMinionsCount] = useState<MinionCount>({
         count_all : 0,
         count_today : 0,
+        count_low_2week : 0,
         count_low_month : 0
     });
 
@@ -46,6 +48,9 @@ export default function InfoCard(){
                     </Typography>
                     <Typography variant={"body1"} component={"p"}>
                         Обновлено сегодня: <span className={classes.num}>{minionsCount.count_today}</span>
+                    </Typography>
+                    <Typography>
+                        Недоступны долее 2х недель: <span className={classes.num}>{minionsCount.count_low_2week}</span>
                     </Typography>
                     <Typography variant={"body1"} component={"p"}>
                         Недоступны более месяца: <span className={classes.num}>{minionsCount.count_low_month}</span>
