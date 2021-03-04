@@ -1,16 +1,16 @@
 
 export interface MinionInfo {
     id : string
-    info : MinionDetail
+    detail : MinionDetail
     user : MinionUser
     network? : MinionNetwork[]
     disk? : MinionDisk[]
-    soft? : MinionDisk[]
+    soft? : MinionSoft[]
 }
 
 export interface MinionDetail {
     node_name : string
-    selialnumber : string
+    serialnumber : string
     biosversion : string
     biosreleasedate : Date
     manufacturer : string

@@ -373,7 +373,7 @@ class MinionController extends AbstractController
 
         $data = [
             'node_name' => $minion->getNodeName(),
-            'selialnumber' => $minion->getSelialnumber(),
+            'serialnumber' => $minion->getSelialnumber(),
             'biosversion' => $minion->getBiosversion(),
             'biosreleasedate' => $minion->getBiosreleasedate(),
             'manufacturer' => $minion->getManufacturer()->getName(),
