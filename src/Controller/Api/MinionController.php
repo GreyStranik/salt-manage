@@ -360,6 +360,17 @@ class MinionController extends AbstractController
             ];
         }
 
+        $softs = $minion->getInstalledSoftware();
+        $soft_list = [];
+        foreach ($softs as $soft){
+            $soft_list[] = [
+                'name' =>$soft->getSoft()->getName(),
+                'size' =>$soft->getSize(),
+                'version' => $soft->getVersion()
+            ];
+        }
+
+
         $data = [
             'node_name' => $minion->getNodeName(),
             'selialnumber' => $minion->getSelialnumber(),
@@ -380,6 +391,7 @@ class MinionController extends AbstractController
             'os_full_name' => $minion->getOsFullName()->getName(),
             'network' => $str_network,
             'disks' => $disks_info,
+            'soft' => $soft_list
 
         ];
 
