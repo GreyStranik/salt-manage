@@ -347,6 +347,19 @@ class MinionController extends AbstractController
             ]) ;
         }
 
+        $disks = $minion->getDisks();
+        $disks_info =[];
+        foreach ($disks as $disk){
+            $disks_info[] = [
+                'name' => $disk->getName(),
+                'used' => $disk->getUsed(),
+                'available' => $disk->getAvailable(),
+                'blocks' => $disk->getBlocks(),
+                'filesystem' => $disk->getFilesystem(),
+                'capacity' => $disk->getCapacity(),
+            ];
+        }
+
         $data = [
             'node_name' => $minion->getNodeName(),
             'selialnumber' => $minion->getSelialnumber(),
@@ -365,7 +378,9 @@ class MinionController extends AbstractController
             'os' => $minion->getOs()->getName(),
             'osrelease' => $minion->getOsrelease(),
             'os_full_name' => $minion->getOsFullName()->getName(),
-            'network' => $str_network
+            'network' => $str_network,
+            'disks' => $disks_info,
+
         ];
 
         return $this->json($data);
