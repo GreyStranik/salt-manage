@@ -321,8 +321,8 @@ class MinionController extends AbstractController
     }
 
     /**
-     * @Route("/{uuid}", name="minion_info", methods={"GET"})
-     * @param string $id
+     * @Route("/{uuid}", name="minion_info_detail", methods={"GET"})
+     * @param string $uuid
      * @param MinionRepository $minionRepository
      * @return JsonResponse
      */
