@@ -329,6 +329,24 @@ class MinionController extends AbstractController
     public function minion_info(string $uuid, MinionRepository $minionRepository):JsonResponse
     {
         $minion = $minionRepository->find($uuid);
+
+        $networks = $minion->getNetworks();
+
+        $str_network = [];
+        foreach ($networks as $network){
+            $ips = $network->getIps();
+
+            $str_ip = [];
+            foreach ($ips as $ip){
+                array_push($str_ip,$ip->getIpAddress());
+            }
+
+            array_push($str_network, [
+                'macaddr' => $network->getMacAddress(),
+                'ips'  => implode(', ',$str_ip)
+            ]) ;
+        }
+
         $data = [
             'node_name' => $minion->getNodeName(),
             'selialnumber' => $minion->getSelialnumber(),
@@ -346,7 +364,8 @@ class MinionController extends AbstractController
             'saltversion' => $minion->getSaltversion(),
             'os' => $minion->getOs()->getName(),
             'osrelease' => $minion->getOsrelease(),
-            'os_full_name' => $minion->getOsFullName()->getName()
+            'os_full_name' => $minion->getOsFullName()->getName(),
+            'network' => $str_network
         ];
 
         return $this->json($data);
