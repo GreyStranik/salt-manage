@@ -21,6 +21,7 @@ use App\Repository\MinionRepository;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -317,5 +318,37 @@ class MinionController extends AbstractController
         $d = $this->getDoctrine()->getRepository(Minion::class)->count_info();
 
         return $this->json($d);
+    }
+
+    /**
+     * @Route("/{uuid}", name="minion_info", methods={"GET"})
+     * @param string $id
+     * @param MinionRepository $minionRepository
+     * @return JsonResponse
+     */
+    public function minion_info(string $uuid, MinionRepository $minionRepository):JsonResponse
+    {
+        $minion = $minionRepository->find($uuid);
+        $data = [
+            'node_name' => $minion->getNodeName(),
+            'selialnumber' => $minion->getSelialnumber(),
+            'biosversion' => $minion->getBiosversion(),
+            'biosreleasedate' => $minion->getBiosreleasedate(),
+            'manufacturer' => $minion->getManufacturer()->getName(),
+            'cpu_model'  => $minion->getCpuModel()->getName(),
+            'product_name' => $minion->getProductName()->getName(),
+            'room' => $minion->getRoom(),
+            'fio_user' => $minion->getFioUser(),
+            'user_phone' => $minion->getUserPhone(),
+            'type' => $minion->getType()->getName(),
+            'type_dep' => $minion->getTypeDep()->getName(),
+            'department' => $minion->getDepartment()->getName(),
+            'saltversion' => $minion->getSaltversion(),
+            'os' => $minion->getOs()->getName(),
+            'osrelease' => $minion->getOsrelease(),
+            'os_full_name' => $minion->getOsFullName()->getName()
+        ];
+
+        return $this->json($data);
     }
 }
