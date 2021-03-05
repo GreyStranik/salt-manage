@@ -22,7 +22,7 @@ export default function OsCard(){
                     <CardHeader title={"ОС"} subheader={"Операционные системы установленные на миньонах"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={180} />
+                        <DataChart data={data} height={170} />
 
                     </CardContent>
                 </Card>

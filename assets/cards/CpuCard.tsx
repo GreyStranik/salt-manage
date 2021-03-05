@@ -22,7 +22,7 @@ export default function CpuCard(){
                     <CardHeader title={"CPU"} subheader={"Зоопарк процессоров"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={180}  />
+                        <DataChart data={data} height={170}  />
 
                     </CardContent>
                 </Card>

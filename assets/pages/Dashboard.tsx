@@ -8,6 +8,7 @@ import TypeCard from "../cards/TypeCards";
 import OsCard from "../cards/OsCard";
 import ManufacturerCard from "../cards/ManufacturerCard";
 import MinionsInfo from "../components/MinionsInfo";
+import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 
 function Dashboard() {
 
@@ -25,6 +26,7 @@ function Dashboard() {
 
     return (
         <>
+            <CssBaseline />
             <Grid container /*direction={"row"}*/ spacing={4} className={classes.root}>
 
                 <Grid item xs={12}>

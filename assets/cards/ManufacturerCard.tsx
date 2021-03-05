@@ -22,7 +22,7 @@ export default function ManufacturerCard(){
                     <CardHeader title={"Производители"} subheader={"Производители компьютеров"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={180} />
+                        <DataChart data={data} height={170} />
 
                     </CardContent>
                 </Card>

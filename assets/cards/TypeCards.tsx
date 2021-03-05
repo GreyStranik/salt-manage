@@ -22,7 +22,7 @@ export default function TypeCard(){
                     <CardHeader title={"Типы"} subheader={"Типы зарегистрированных миньонов"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={180} />
+                        <DataChart data={data} height={170} />
 
                     </CardContent>
                 </Card>
