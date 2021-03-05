@@ -348,6 +348,7 @@ class MinionController extends AbstractController
         }
 
         $disks = $minion->getDisks();
+
         $disks_info =[];
         foreach ($disks as $disk){
             $disks_info[] = [
@@ -360,10 +361,14 @@ class MinionController extends AbstractController
             ];
         }
 
+        $disk_names = array_column($disks_info,'name');
+        $disks_ordered = array_multisort($disk_names,SORT_ASC,$disks_info);
+
         $softs = $minion->getInstalledSoftware();
         $soft_list = [];
         foreach ($softs as $soft){
             $soft_list[] = [
+                'id' => $soft->getId(),
                 'name' =>$soft->getSoft()->getName(),
                 'size' =>$soft->getSize(),
                 'version' => $soft->getVersion()
@@ -391,6 +396,7 @@ class MinionController extends AbstractController
             'os_full_name' => $minion->getOsFullName()->getName(),
             'network' => $str_network,
             'disks' => $disks_info,
+            'disks_ordered' => $disks_ordered,
             'soft' => $soft_list
 
         ];
