@@ -5,7 +5,7 @@ export interface MinionInfo {
     user : MinionUser
     network? : MinionNetwork[]
     disk? : MinionDisk[]
-    soft? : MinionSoft[]
+    soft : MinionSoft[]
 }
 
 export interface MinionDetail {
@@ -45,6 +45,7 @@ export interface MinionDisk {
 }
 
 export interface MinionSoft {
+    id : string
     name : string
     size : number
     version : number
