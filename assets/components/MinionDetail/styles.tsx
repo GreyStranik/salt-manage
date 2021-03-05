@@ -24,7 +24,24 @@ const useStyles = makeStyles((theme:Theme) =>
             flex: '0 0 60%',
             color: theme.palette.primary.main,
             fontWeight: 600
+        },
+        disk_name : {
+            fontWeight: 600,
+            color: theme.palette.text.primary
+        },
+        disk_block : {
+            paddingBottom : theme.spacing(2),
+            paddingTop : theme.spacing(2)
+        },
+        disk_param_name : {
+            fontWeight : 700,
+            color: theme.palette.text.secondary
+        },
+        disk_param_value : {
+            fontWeight: 600,
+            color: theme.palette.primary.main
         }
+
     })
 )
 
