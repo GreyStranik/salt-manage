@@ -49,7 +49,7 @@ function MinionDiskInfo(data:IDiskList){
                     {
                         data.disk ? (
                                 data.disk?.filter(item=>(["tmpfs","runfs","udevfs"].indexOf(item.filesystem)<0)).map((item,index)=>(
-                                    <>
+                                    <div key={index}>
                                         <CardActionArea key={index} className={classes.disk_block}>
 
                                             <div className={classes.item}>
@@ -69,7 +69,7 @@ function MinionDiskInfo(data:IDiskList){
 
                                         </CardActionArea>
                                         <Divider variant={"middle"} />
-                                    </>
+                                    </div>
 
                                 ))
                             ) : (
