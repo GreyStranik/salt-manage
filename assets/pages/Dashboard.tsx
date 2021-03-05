@@ -2,7 +2,6 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
-import InfoCard from "../cards/InfoCard";
 import CpuCard from "../cards/CpuCard";
 import DepartmentsCard from "../cards/DepartmentsCard";
 import TypeCard from "../cards/TypeCards";
