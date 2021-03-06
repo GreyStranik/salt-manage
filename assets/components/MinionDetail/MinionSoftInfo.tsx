@@ -23,6 +23,8 @@ function MinionSoftInfo(data:ISoftList){
     useEffect(()=>{
         if (data?.soft){
             setSoft(data.soft)
+        } else {
+            setSoft([])
         }
 
     },[data.soft])

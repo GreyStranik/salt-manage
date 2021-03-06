@@ -321,6 +321,17 @@ class MinionController extends AbstractController
     }
 
     /**
+     * @Route("/new_minions", name="new_minions_list", methods={"GET"})
+     * @param MinionRepository $minionRepository
+     * @return JsonResponse
+     */
+    function new_minions(MinionRepository $minionRepository):JsonResponse
+    {
+        $result = $minionRepository->new_minions();
+        return $this->json($result);
+    }
+
+    /**
      * @Route("/{uuid}", name="minion_info_detail", methods={"GET"})
      * @param string $uuid
      * @param MinionRepository $minionRepository
@@ -403,4 +414,5 @@ class MinionController extends AbstractController
 
         return $this->json($data);
     }
+
 }

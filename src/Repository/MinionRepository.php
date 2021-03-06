@@ -20,6 +20,18 @@ class MinionRepository extends ServiceEntityRepository
         parent::__construct($registry, Minion::class);
     }
 
+    function new_minions(){
+        $str = "SELECT id, node_name
+                FROM public.minion
+                where date_trunc('day',created_at)=CURRENT_DATE
+                order by node_name";
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult("id","id");
+        $rsm->addScalarResult("node_name","node_name");
+        $data = $this->getEntityManager()->createNativeQuery($str,$rsm)->getResult();
+        return $data;
+    }
+
     function count_info(){
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('count','count');

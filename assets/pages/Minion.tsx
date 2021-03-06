@@ -54,6 +54,7 @@ function Minion(){
     const [info,setInfo] = useState<MinionInfo>()
 
     useEffect(()=>{
+        setInfo(undefined)
         fetch(`/api/minion/${id}`).then(response=>response.json()).then(result=>{
             console.log(result)
             const network:MinionNetwork[] = result['network']
@@ -87,7 +88,7 @@ function Minion(){
             setInfo(data)
 
         })
-    },[]);
+    },[id]);
 
     return (
         <>

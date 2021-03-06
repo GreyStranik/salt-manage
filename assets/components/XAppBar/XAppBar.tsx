@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles, fade} from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 // import {Theme}  from '@material-ui/core';
@@ -9,9 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar/AppBar";
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import Badge from '@material-ui/core/Badge'
 import InputBase from "@material-ui/core/InputBase";
+import {Computer} from "../PanelIcons";
 
 function XAppBar() {
 
@@ -95,11 +94,8 @@ function XAppBar() {
                         />
                     </div>
 
-                    <IconButton aria-label="show 4 new mails" color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
+                    <Computer/>
+
                 </Toolbar>
             </AppBar>
         </>

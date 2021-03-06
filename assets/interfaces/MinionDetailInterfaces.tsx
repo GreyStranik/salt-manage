@@ -1,4 +1,9 @@
 
+export interface MinionListItem {
+    id: string
+    node_name : string
+}
+
 export interface MinionInfo {
     id : string
     detail : MinionDetail
