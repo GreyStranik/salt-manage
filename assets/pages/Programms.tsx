@@ -99,7 +99,7 @@ function Programms() {
 
                     <VirtuosoGrid
                         totalCount={data.filter(item => item.name.toLowerCase().includes(find)).length}
-                        overscan={10}
+                        overscan={20}
                         style={{ height: '70vh', width: '100%' }}
                         components={{
                             Item: ItemContainer,
@@ -115,7 +115,7 @@ function Programms() {
                                 const soft_info = data.filter(item => item.name.toLowerCase().includes(find))[index]
                                 return (
                                     <ItemWrapper>
-                                        <SoftInfoCard {...soft_info} />
+                                        <SoftInfoCard {...soft_info} filter={find}  />
                                     </ItemWrapper>
                                 )
                             }
