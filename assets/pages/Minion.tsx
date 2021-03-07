@@ -12,12 +12,15 @@ import {
     MinionSoft,
     MinionUser
 } from "../interfaces/MinionDetailInterfaces";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import MinionParamItem from "../components/MinionDetail/MinionParamItem";
 import MinionMainInfo from "../components/MinionDetail/MinionMainInfo";
 import MinionUserInfo from "../components/MinionDetail/MinionUserInfo";
 import MinionNetworkInfo from "../components/MinionDetail/MinionNetworkInfo";
 import MinionDiskInfo from "../components/MinionDetail/MinionDiskInfo";
 import MinionSoftInfo from "../components/MinionDetail/MinionSoftInfo";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 interface RouteParams {
     id: string
@@ -96,7 +99,22 @@ function Minion(){
             <Grid container  direction={"row"}>
 
                 <Grid item xs={12}>
-                    <h1>Информация о компьютере</h1>
+
+                    <Box display={"flex"} mt={2} mb={3} justifyContent={"space-between"}>
+
+                        <Typography variant={"h5"} color={"textSecondary"} > Информация о компьютере  </Typography>
+                        {
+                            info?.detail.node_name ? (
+                                <Box color={"primary.main"}>
+                                    <Typography variant={"h5"} >  {info.detail.node_name} </Typography>
+                                </Box>
+                            ) : (
+                                <Skeleton animation={"wave"} className={classes.item_value} width={1/4} />
+                            )
+                        }
+
+                    </Box>
+
                 </Grid>
 
                 <Grid item xs={12}>
