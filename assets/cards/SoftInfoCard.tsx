@@ -28,7 +28,7 @@ export default function SoftInfoCard(data:FilteredProgrammItemName){
 
 
     const filter_parse = (name:string,filter:string) => {
-        const start = name.indexOf(filter)
+        const start = name.toLocaleLowerCase().indexOf(filter.toLowerCase())
         const filter_end = start + filter.length
         return {start,filter_end}
     }
