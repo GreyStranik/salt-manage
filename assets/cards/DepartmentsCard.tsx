@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
-import DataChart from './../components/DataChart'
-import {ChartDataItem} from "../components/DataChart/DataChart";
+import DataChart from '@components/DataChart'
+import {ChartDataItem} from "@components/DataChart/DataChart";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";

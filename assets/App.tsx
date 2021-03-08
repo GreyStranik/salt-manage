@@ -1,8 +1,8 @@
 import React from 'react'
 
 import Toolbar from '@material-ui/core/Toolbar';
-import XAppBar from "./components/XAppBar";
-import SidePanel from "./components/SidePanel"
+import XAppBar from "@components/XAppBar";
+import SidePanel from "@components/SidePanel"
 
 import {makeStyles, fade} from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
@@ -15,11 +15,11 @@ import {
     withRouter
 } from "react-router-dom"
 
-import Dashboard from "./pages/Dashboard"
-import Minions from "./pages/Minions";
-import Programms from "./pages/Programms";
-import NotFound from "./pages/NotFound";
-import Minion from "./pages/Minion";
+import Dashboard from "@pages/Dashboard"
+import Minions from "@pages/Minions";
+import Programms from "@pages/Programms";
+import NotFound from "@pages/NotFound";
+import Minion from "@pages/Minion";
 
 function App() {
 

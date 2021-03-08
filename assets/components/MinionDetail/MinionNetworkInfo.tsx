@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import MinionParamItem from "./MinionParamItem";
 import Card from "@material-ui/core/Card/Card";
 import Skeleton from "@material-ui/lab/Skeleton";
-import {MinionNetwork} from "../../interfaces/MinionDetailInterfaces";
+import {MinionNetwork} from "@interfaces/MinionDetailInterfaces";
 
 interface INetwokList {
     network? : MinionNetwork[]

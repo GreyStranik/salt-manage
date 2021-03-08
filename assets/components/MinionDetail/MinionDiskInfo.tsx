@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import StorageIcon from '@material-ui/icons/Storage';
-import {MinionDisk} from "../../interfaces/MinionDetailInterfaces";
+import {MinionDisk} from "@interfaces/MinionDetailInterfaces";
 import Skeleton from "@material-ui/lab/Skeleton";
 import {createStyles, makeStyles, withStyles} from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';

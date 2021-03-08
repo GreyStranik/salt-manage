@@ -1,5 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -49,6 +50,11 @@ Encore
     //     config.plugins.push('@babel/plugin-proposal-class-properties');
     // })
 
+
+    // resolve: {
+    //     plugins: [new TsconfigPathsPlugin({/* options: see below */})]
+    // }
+
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
@@ -71,5 +77,6 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
 ;
-
-module.exports = Encore.getWebpackConfig();
+let config = Encore.getWebpackConfig()
+config.resolve.plugins=([new TsconfigPathsPlugin({/* options: see below */})])
+module.exports = config //Encore.getWebpackConfig();

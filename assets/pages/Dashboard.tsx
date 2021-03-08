@@ -2,12 +2,12 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
-import CpuCard from "../cards/CpuCard";
-import DepartmentsCard from "../cards/DepartmentsCard";
-import TypeCard from "../cards/TypeCards";
-import OsCard from "../cards/OsCard";
-import ManufacturerCard from "../cards/ManufacturerCard";
-import MinionsInfo from "../components/MinionsInfo";
+import CpuCard from "@cards/CpuCard";
+import DepartmentsCard from "@cards/DepartmentsCard";
+import TypeCard from "@cards/TypeCards";
+import OsCard from "@cards/OsCard";
+import ManufacturerCard from "@cards/ManufacturerCard";
+import MinionsInfo from "@components/MinionsInfo";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 
 function Dashboard() {

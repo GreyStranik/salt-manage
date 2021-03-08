@@ -14,12 +14,12 @@ import {
 } from "../interfaces/MinionDetailInterfaces";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import MinionParamItem from "../components/MinionDetail/MinionParamItem";
-import MinionMainInfo from "../components/MinionDetail/MinionMainInfo";
-import MinionUserInfo from "../components/MinionDetail/MinionUserInfo";
-import MinionNetworkInfo from "../components/MinionDetail/MinionNetworkInfo";
-import MinionDiskInfo from "../components/MinionDetail/MinionDiskInfo";
-import MinionSoftInfo from "../components/MinionDetail/MinionSoftInfo";
+
+import MinionMainInfo from "@components/MinionDetail/MinionMainInfo";
+import MinionUserInfo from "@components/MinionDetail/MinionUserInfo";
+import MinionNetworkInfo from "@components/MinionDetail/MinionNetworkInfo";
+import MinionDiskInfo from "@components/MinionDetail/MinionDiskInfo";
+import MinionSoftInfo from "@components/MinionDetail/MinionSoftInfo";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 interface RouteParams {

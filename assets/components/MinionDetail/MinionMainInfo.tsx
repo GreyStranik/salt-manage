@@ -5,7 +5,6 @@ import CardContent from "@material-ui/core/CardContent";
 import MinionParamItem from "./MinionParamItem";
 import Card from "@material-ui/core/Card/Card";
 import ComputerIcon from '@material-ui/icons/Computer';
-import {MinionDetail} from "../../interfaces/MinionDetailInterfaces";
 
 interface IMinionDetail {
     node_name? : string

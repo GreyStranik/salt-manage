@@ -3,7 +3,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card/Card";
-import {ProgrammItemName} from "../interfaces/ProgrammItemName";
+import {ProgrammItemName} from "@interfaces/ProgrammItemName";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 
 interface FilteredProgrammItemName extends ProgrammItemName{

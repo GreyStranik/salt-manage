@@ -2,16 +2,11 @@ import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from '@material-ui/core/CardContent';
-import Typography from "@material-ui/core/Typography";
+
 import {makeStyles } from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import {ProgrammItemName} from "../interfaces/ProgrammItemName";
-import SoftInfoCard from "../cards/SoftInfoCard";
+import {ProgrammItemName} from "@interfaces/ProgrammItemName";
+import SoftInfoCard from "@cards/SoftInfoCard";
 import {VirtuosoGrid} from "react-virtuoso";
 import styled from "styled-components";
 

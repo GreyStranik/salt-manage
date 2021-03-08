@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Badge from "@material-ui/core/Badge";
 import ComputerIcon from '@material-ui/icons/Computer';
 import IconButton from "@material-ui/core/IconButton";
-import {MinionListItem} from "../../interfaces/MinionDetailInterfaces";
+import {MinionListItem} from "@interfaces/MinionDetailInterfaces";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Fade from "@material-ui/core/Fade";
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme:Theme)=>createStyles({
     }
 }))
 
-export default function Computer(){
+export function Computer(){
 
     const classes = useStyles()
 

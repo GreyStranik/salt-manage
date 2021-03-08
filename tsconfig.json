@@ -16,7 +16,14 @@
         "forceConsistentCasingInFileNames": true,
         "module": "esnext",
         "isolatedModules": true,
-        "jsx": "react"
+        "jsx": "react",
+        "baseUrl": "assets",
+        "paths": {
+            "@components/*" : ["components/*"],
+            "@pages/*" : ["pages/*"],
+            "@cards/*" : ["cards/*"],
+            "@interfaces/*" : ["interfaces/*"]
+        }
 },
     "include": [
     "assets"

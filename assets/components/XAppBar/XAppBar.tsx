@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import InputBase from "@material-ui/core/InputBase";
-import {Computer} from "../PanelIcons";
+import Computer from "@components/PanelIcons";
 
 function XAppBar() {
 

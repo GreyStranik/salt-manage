@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps, StateChangeParams} from '@material-ui/data-grid';
-import {RU_LOCALE_TEXT} from "../components/addons/grid_ru";
-import {renderCellExpand} from "../components/addons/GridCellExpand"
-import CustomGridPagination from "../components/addons/CustomGridPagination";
-import NoDataOverlay from "../components/addons/NoDataOverlay";
+import {RU_LOCALE_TEXT} from "@components/addons/grid_ru";
+import {renderCellExpand} from "@components/addons/GridCellExpand"
+import CustomGridPagination from "@components/addons/CustomGridPagination";
+import NoDataOverlay from "@components/addons/NoDataOverlay";
 
 import {NavLink , useLocation} from 'react-router-dom';
 import {createStyles, makeStyles, Theme} from "@material-ui/core";

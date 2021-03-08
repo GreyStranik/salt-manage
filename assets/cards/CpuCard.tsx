@@ -4,8 +4,8 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from '@material-ui/core/CardContent';
 import Grid from "@material-ui/core/Grid";
-import DataChart from "../components/DataChart";
-import {ChartProps, ChartDataItem} from "../components/DataChart/DataChart";
+import DataChart from "@components/DataChart";
+import {ChartProps, ChartDataItem} from "@components/DataChart/DataChart";
 
 export default function CpuCard(){
 
