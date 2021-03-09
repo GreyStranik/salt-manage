@@ -24,6 +24,8 @@ export interface MinionDetail {
     saltversion : string
     os : string
     osrelease : string
+    created_at : Date
+    updated_at : Date
 }
 
 export interface MinionUser {

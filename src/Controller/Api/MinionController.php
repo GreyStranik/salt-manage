@@ -412,7 +412,9 @@ class MinionController extends AbstractController
             'network' => $str_network,
             'disks' => $disks_info,
             'disks_ordered' => $disks_ordered,
-            'soft' => $soft_list
+            'soft' => $soft_list,
+            'created_at' => $minion->getCreatedAt(),
+            'updated_at' => $minion->getUpdatedAt()
 
         ];
 

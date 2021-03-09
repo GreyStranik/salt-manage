@@ -5,6 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import MinionParamItem from "./MinionParamItem";
 import Card from "@material-ui/core/Card/Card";
 import ComputerIcon from '@material-ui/icons/Computer';
+import Divider from "@material-ui/core/Divider";
 
 interface IMinionDetail {
     node_name? : string
@@ -17,6 +18,8 @@ interface IMinionDetail {
     saltversion? : string
     os? : string
     osrelease? : string
+    created_at? : Date
+    updated_at? : Date
 }
 
 function MinionMainInfo(detail:IMinionDetail) {
@@ -39,6 +42,10 @@ function MinionMainInfo(detail:IMinionDetail) {
                     <MinionParamItem title={"Версия BIOS"} value={detail?.biosversion}/>
                     <MinionParamItem title={"Дата BIOS"} value={detail?.biosreleasedate?.toLocaleDateString()}/>
                     <MinionParamItem title={"salt"} value={detail?.saltversion}/>
+                    <Divider variant={"middle"} />
+                    <MinionParamItem title={"Создано"} value={detail?.created_at?.toLocaleString()}/>
+                    <MinionParamItem title={"Обновлено"} value={detail?.updated_at?.toLocaleString()}/>
+
 
                 </CardContent>
             </Card>

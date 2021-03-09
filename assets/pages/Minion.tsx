@@ -81,7 +81,9 @@ function Minion(){
                 osrelease: result['osrelease'],
                 product_name: result['product_name'],
                 saltversion: result['saltversion'],
-                serialnumber: result['serialnumber']
+                serialnumber: result['serialnumber'],
+                created_at: new Date(result['created_at']),
+                updated_at: new Date(result['updated_at'])
             }
             const data:MinionInfo = {
                 id,
