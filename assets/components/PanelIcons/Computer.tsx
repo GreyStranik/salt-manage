@@ -78,9 +78,26 @@ const useStyles = makeStyles((theme:Theme)=>createStyles({
             height: "100%",
             boxShadow: theme.shadows[1],
             backgroundColor: "currentColor",
-            transform: "rotate(-45deg)"
+            transform: "rotate(45deg)"
         }
-    }
+    },
+    // paper : {
+    //     overflowX: "unset",
+    //     overflowY: "unset",
+    //     "&::before": {
+    //         content: '""',
+    //         position: "absolute",
+    //         marginRight: "-0.71em",
+    //         bottom: 0,
+    //         right: 0,
+    //         width: 10,
+    //         height: 10,
+    //         backgroundColor: theme.palette.background.paper,
+    //         boxShadow: theme.shadows[1],
+    //         transform: "translate(-50%, 50%) rotate(135deg)",
+    //         clipPath: "polygon(-5px -5px, calc(100% + 5px) -5px, calc(100% + 5px) calc(100% + 5px))",
+    //     },
+    // },
 }))
 
 export function Computer(){
@@ -113,7 +130,7 @@ export function Computer(){
                 </Badge>
             </IconButton>
 
-            <Popper open={open&&newMinions.length>0} anchorEl={anchorRef.current} role={undefined} placement={"bottom"} transition className={classes.poper}
+            <Popper open={open&&newMinions.length>0} anchorEl={anchorRef.current} role={undefined} placement={"bottom"} transition className={classes.popper}
                     modifiers={{
                         preventOverflow: {
                             enabled: true,
