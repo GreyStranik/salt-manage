@@ -265,6 +265,9 @@ class MinionController extends AbstractController
                 $installed->setMinion($minion)->setSoft($soft);
             }
             $installed->setSize($package['size'])->setVersion($package['version']);
+            if(array_key_exists('installed_at',$package)){
+                $installed->setInstalledAt(\DateTime::createFromFormat('U',$package['installed_at']));
+            }
             $em->persist($installed);
 
         }

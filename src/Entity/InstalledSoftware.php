@@ -49,6 +49,11 @@ class InstalledSoftware
     private $version;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $InstalledAt;
+
+    /**
      * @return UuidInterface
      */
     public function getId(): UuidInterface
@@ -100,6 +105,18 @@ class InstalledSoftware
     public function setVersion(?string $version): self
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getInstalledAt(): ?\DateTimeInterface
+    {
+        return $this->InstalledAt;
+    }
+
+    public function setInstalledAt(?\DateTimeInterface $InstalledAt): self
+    {
+        $this->InstalledAt = $InstalledAt;
 
         return $this;
     }
