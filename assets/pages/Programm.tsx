@@ -10,6 +10,7 @@ import numeral from "numeral";
 import {RU_LOCALE_TEXT} from "@components/addons/grid_ru";
 import CustomGridPagination from "@components/addons/CustomGridPagination";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
+import {NavLink} from "react-router-dom";
 
 interface RouteParams {
     id: string
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme:Theme) =>
         },
         item_value : {
             flex: '0 0 50%'
+        },
+        table_cell_link : {
+            textDecoration : 'none',
+            color : theme.palette.text.primary
         }
     }))
 
@@ -59,7 +64,19 @@ export default function Programm(){
     },[id])
 
     const columns:ColDef[] = [
-        {field:'node_name',headerName:"Компьютер",flex:1},
+        {
+            field:'node_name',
+            headerName:"Компьютер",
+            flex:1,
+            renderCell: params => {
+                console.log(params.row.id)
+                return  (
+                    <NavLink to={`/minions/${params.row.id}`} className={classes.table_cell_link} >
+                        {params.value}
+                    </NavLink>
+                )
+            }
+        },
         {
             field:'size',
             headerName:'Размер',
