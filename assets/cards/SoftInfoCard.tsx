@@ -3,6 +3,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card/Card";
+import {Link} from "react-router-dom";
 import {ProgrammItemName} from "@interfaces/ProgrammItemName";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 
@@ -39,7 +40,7 @@ export default function SoftInfoCard(data:FilteredProgrammItemName){
     return (
         <>
             <Card>
-                <CardActionArea key={data.id}>
+                <CardActionArea key={data.id} component={Link} to={`/programms/${data.id}`}>
                     <CardContent>
                         <Typography
                             variant={"h5"}
