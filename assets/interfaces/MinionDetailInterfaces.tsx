@@ -52,6 +52,7 @@ export interface MinionDisk {
 export interface MinionSoft {
     id : string
     name : string
+    soft_id : string
     size : number
     version : number
 }

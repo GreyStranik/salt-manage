@@ -16,7 +16,7 @@ interface GridCellExpandProps {
     width: number;
 }
 
-const GridCellExpand = React.memo(function GridCellExpand(
+export const GridCellExpand = React.memo(function GridCellExpand(
     props: GridCellExpandProps,
 ) {
 

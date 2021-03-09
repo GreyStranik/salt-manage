@@ -384,6 +384,7 @@ class MinionController extends AbstractController
             $soft_list[] = [
                 'id' => $soft->getId(),
                 'name' =>$soft->getSoft()->getName(),
+                'soft_id' =>$soft->getSoft()->getId(),
                 'size' =>$soft->getSize(),
                 'version' => $soft->getVersion()
             ];
