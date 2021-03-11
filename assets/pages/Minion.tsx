@@ -126,20 +126,31 @@ function Minion(){
 
                             <Grid container spacing={2} >
 
-                                <Grid item md={12} lg={6}>
-                                    <MinionMainInfo {...info?.detail} />
-                                </Grid>
 
-                                <Grid item md={12} lg={6}>
-                                    <MinionUserInfo {...info?.user} />
-                                </Grid>
+                                <Grid item sm={12} lg={6}>
 
-                                <Grid item md={12} lg={6}>
-                                    <MinionNetworkInfo network={info?.network}/>
-                                </Grid>
+                                    <Grid container spacing={2}>
+                                        <Grid item sm={12}>
+                                            <MinionMainInfo {...info?.detail} />
+                                        </Grid>
 
-                                <Grid item md={12} lg={6}>
-                                    <MinionDiskInfo disk={info?.disk} />
+                                        <Grid item sm={12}>
+                                            <MinionNetworkInfo network={info?.network}/>
+                                        </Grid>
+                                    </Grid>
+
+                                </Grid>
+                                <Grid item sm={12} lg={6}>
+                                    <Grid container spacing={2}>
+                                        <Grid item sm={12}>
+                                            <MinionUserInfo {...info?.user} />
+                                        </Grid>
+                                        <Grid item sm={12}>
+                                            <MinionDiskInfo disk={info?.disk} />
+
+                                        </Grid>
+
+                                    </Grid>
                                 </Grid>
 
                             </Grid>
