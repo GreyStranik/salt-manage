@@ -12,6 +12,9 @@ import AppBar from "@material-ui/core/AppBar/AppBar";
 import InputBase from "@material-ui/core/InputBase";
 import Computer from "@components/PanelIcons";
 import LightingIcon from "@components/PanelIcons/LightingIcon";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@store/store";
+import {collapsePanel, expandPanel} from "@store/pannel/actions";
 
 function XAppBar() {
 
@@ -73,6 +76,13 @@ function XAppBar() {
 
     const classes = useStyles();
 
+    const opened = useSelector((state:RootState)=>state.panel.open)
+    const dispatch = useDispatch()
+
+    const handlePanel = () =>{
+        opened ? dispatch(collapsePanel()) : dispatch(expandPanel())
+    }
+
     return (
         <>
             <AppBar position={"fixed"} className={classes.appBar}
@@ -81,7 +91,7 @@ function XAppBar() {
                     }}
             >
                 <Toolbar>
-                    <IconButton edge={"start"} className={classes.menuButton} color="inherit" aria-label="menu" >
+                    <IconButton edge={"start"} className={classes.menuButton} color="inherit" aria-label="menu"  onClick={handlePanel} >
                         <MenuIcon />
                     </IconButton>
                     <Typography variant={"h6"} className={classes.title}>

@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from 'clsx';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,6 +14,8 @@ import {NavLink , useLocation} from 'react-router-dom';
 import DashboardRoundedIcon  from '@material-ui/icons/DashboardRounded';
 import AppsIcon from '@material-ui/icons/Apps';
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
+import {useSelector} from "react-redux";
+import {RootState} from "@store/store";
 
 const drawerWidth = 240;
 
@@ -24,6 +27,25 @@ const useStyles = makeStyles((theme: Theme) =>
         drawer: {
             width: drawerWidth,
             flexShrink: 0,
+            // whiteSpace: 'nowrap',
+        },
+        drawerOpen: {
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+        },
+        drawerClose: {
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            overflowX: 'hidden',
+            width: theme.spacing(7) + 1,
+            [theme.breakpoints.up('sm')]: {
+                width: theme.spacing(9) + 1,
+            },
         },
         drawerPaper: {
             width: drawerWidth,
@@ -37,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         menu_item : {
             textDecoration : 'none',
-            color : theme.palette.text.primary
+            color : theme.palette.text.primary,
         }
     }),
 );
@@ -46,13 +68,26 @@ function SidePanel() {
     const classes = useStyles();
     const location = useLocation();
 
+    // const [open, setOpen] = React.useState(false);
+    const open = useSelector((state:RootState)=>state.panel.open)
+
     return (
         <>
             <Drawer
-                className={classes.drawer}
                 variant={"permanent"}
+                // className={classes.drawer}
+                // classes={{
+                //     paper: classes.drawerPaper
+                // }}
+                className={clsx(classes.drawer, {
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })}
                 classes={{
-                    paper: classes.drawerPaper
+                    paper: clsx({
+                        [classes.drawerOpen]: open,
+                        [classes.drawerClose]: !open,
+                    }),
                 }}
             >
                 <Toolbar />
