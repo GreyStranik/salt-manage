@@ -2,7 +2,7 @@ import {PanelState} from "@store/pannel/state";
 import {COLLAPSE, EXPAND, PanelStatusAction} from "@store/pannel/actions";
 
 const initialState:PanelState={
-    open: false
+    open: true
 }
 
 export const panelReducer=(state=initialState,action:PanelStatusAction):PanelState=>{

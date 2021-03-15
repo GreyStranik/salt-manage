@@ -5,7 +5,7 @@ import {SET_DARK_THEME, SET_DEFAULT_THEME} from "@store/theme/actionTypes";
 import {DARK_THEME, DEFAULT_THEME} from "../../themes";
 
 const initialState:ThemeState = {
-    theme : DARK_THEME
+    theme : DEFAULT_THEME
 }
 
 export const themeReducer = (state=initialState,action:ThemeSwitchAction):ThemeState => {
