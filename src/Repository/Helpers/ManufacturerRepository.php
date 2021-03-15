@@ -32,7 +32,7 @@ class ManufacturerRepository extends ServiceEntityRepository
 
         $data_tmp = $this->getEntityManager()->createNativeQuery($str,$rsm)->getResult();
 
-        $data = array_splice($data_tmp,0,6);
+        $data = array_splice($data_tmp,0,5);
         $val = 0;
         foreach ($data_tmp as $tmp){
             $val+=$tmp['value'];
