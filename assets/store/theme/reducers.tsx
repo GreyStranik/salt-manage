@@ -12,10 +12,11 @@ export const themeReducer = (state=initialState,action:ThemeSwitchAction):ThemeS
     switch (action.type) {
         case SET_DARK_THEME:
             return {
+                ...state,
                 theme: DARK_THEME
             }
         case SET_DEFAULT_THEME:
-            return {theme: DEFAULT_THEME}
+            return {...state,theme: DEFAULT_THEME}
         default:
             return state
     }
