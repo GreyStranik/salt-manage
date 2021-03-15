@@ -21,6 +21,7 @@ import Programms from "@pages/Programms";
 import NotFound from "@pages/NotFound";
 import Minion from "@pages/Minion";
 import Programm from "@pages/Programm";
+import store from "@store/store";
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
     }));
 
     const classes = useStyles();
+
+    console.log(store.getState())
 
     return (
         <div style={{display: "flex", minHeight: '100vh'}}>

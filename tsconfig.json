@@ -22,7 +22,8 @@
             "@components/*" : ["components/*"],
             "@pages/*" : ["pages/*"],
             "@cards/*" : ["cards/*"],
-            "@interfaces/*" : ["interfaces/*"]
+            "@interfaces/*" : ["interfaces/*"],
+            "@store/*" : ["store/*"]
         }
 },
     "include": [

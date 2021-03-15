@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import InputBase from "@material-ui/core/InputBase";
 import Computer from "@components/PanelIcons";
+import LightingIcon from "@components/PanelIcons/LightingIcon";
 
 function XAppBar() {
 
@@ -18,6 +19,9 @@ function XAppBar() {
         appBar: {
             // flexGrow: 1,
             zIndex: theme.zIndex.drawer + 1,
+        },
+        toolBar: {
+            backgroundColor: theme.palette.type==="dark" ? theme.palette.background.paper : theme.palette.primary.main
         },
         menuButton: {
             marginRight: theme.spacing(2),
@@ -71,7 +75,11 @@ function XAppBar() {
 
     return (
         <>
-            <AppBar position={"fixed"} className={classes.appBar} >
+            <AppBar position={"fixed"} className={classes.appBar}
+                    classes={{
+                        root: classes.toolBar
+                    }}
+            >
                 <Toolbar>
                     <IconButton edge={"start"} className={classes.menuButton} color="inherit" aria-label="menu" >
                         <MenuIcon />
@@ -95,6 +103,7 @@ function XAppBar() {
                     </div>
 
                     <Computer/>
+                    <LightingIcon/>
 
                 </Toolbar>
             </AppBar>
