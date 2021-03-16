@@ -23,7 +23,8 @@
             "@pages/*" : ["pages/*"],
             "@cards/*" : ["cards/*"],
             "@interfaces/*" : ["interfaces/*"],
-            "@store/*" : ["store/*"]
+            "@store/*" : ["store/*"],
+            "@add_types/*" : ["add_types/*"]
         }
 },
     "include": [
