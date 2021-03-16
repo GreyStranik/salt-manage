@@ -5,7 +5,9 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 const useStyles = makeStyles((theme:Theme) =>
     createStyles({
         root : {
-            flexGrow: 1
+            flexGrow: 1,
+            marginLeft: 8,
+            marginRight: 8
         },
         card : {
             margin: 12
