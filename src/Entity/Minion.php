@@ -47,7 +47,7 @@ class Minion
     /**
      * @ORM\Column(type="text")
      */
-    private $selialnumber;
+    private $serialnumber;
 
     /**
      * @ORM\Column(type="text")
@@ -190,14 +190,14 @@ class Minion
         return $this;
     }
 
-    public function getSelialnumber(): ?string
+    public function getSerialnumber(): ?string
     {
-        return $this->selialnumber;
+        return $this->serialnumber;
     }
 
-    public function setSelialnumber(string $selialnumber): self
+    public function setSerialnumber(string $serialnumber): self
     {
-        $this->selialnumber = $selialnumber;
+        $this->serialnumber = $serialnumber;
 
         return $this;
     }

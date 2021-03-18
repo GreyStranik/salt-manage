@@ -63,7 +63,7 @@ class MinionController extends AbstractController
             $item = [
                 'id'  => $minion->getId(),
                 'node_name' => $minion->getNodeName(),
-                'selialnumber' => $minion->getSelialnumber(),
+                'serialnumber' => $minion->getSerialnumber(),
                 'room' => $minion->getRoom(),
                 'manufacturer' =>$minion->getManufacturer()->getName(),
                 'cpu_model' => $minion->getCpuModel()->getName(),
@@ -96,7 +96,7 @@ class MinionController extends AbstractController
         }
 
         $minion->setNodeName($data['node_name']);
-        $minion->setSelialnumber($data['serialnumber']);
+        $minion->setSerialnumber($data['serialnumber']);
         $minion->setBiosversion($data['biosversion']);
         $minion->setBiosreleasedate(new \DateTime($data['biosreleasedate']));
         $minion->setRoom($data['room']);
@@ -393,7 +393,7 @@ class MinionController extends AbstractController
 
         $data = [
             'node_name' => $minion->getNodeName(),
-            'serialnumber' => $minion->getSelialnumber(),
+            'serialnumber' => $minion->getSerialnumber(),
             'biosversion' => $minion->getBiosversion(),
             'biosreleasedate' => $minion->getBiosreleasedate(),
             'manufacturer' => $minion->getManufacturer()->getName(),
