@@ -15,11 +15,13 @@ import {
 
 import {DateSelect} from "@pages/Minions/DateSelect";
 import {FilteredElement} from "@pages/Minions/filteredElement";
+import {useStyles} from "@pages/Minions/styles";
 
 export function FilterBlock() {
 
+    const classes  = useStyles()
     return (
-        <>
+        <div className={classes.popper_in}>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <FilteredElement title={"Имя компьютера"} field={NODE_NAME}/>
@@ -48,6 +50,6 @@ export function FilterBlock() {
                     <DateSelect title={"Дата обновления миньона"} field={UPDATED_AT}/>
                 </Grid>
             </Grid>
-        </>
+        </div>
     )
 }

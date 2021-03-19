@@ -22,6 +22,7 @@ import {useStyles} from "@pages/Minions/styles";
 
 import {filterMinions} from "@pages/Minions/filters";
 import {FilterBlock} from "@pages/Minions/filterBlock";
+import {FilterAction} from "@pages/Minions/filterAction";
 
 
 function Minions() {
@@ -79,11 +80,10 @@ function Minions() {
             <CssBaseline />
             <Grid container  direction={"row"}>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} className={classes.minion_title}>
                     <h2>Зарегистрированные компьютеры</h2>
-                </Grid>
-                <Grid item xs={6}>
-                    <FilterBlock />
+                    <FilterAction/>
+
                 </Grid>
 
                 <Grid item xs={12}>
