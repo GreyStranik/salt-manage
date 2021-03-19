@@ -1,34 +1,48 @@
 import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
-import {DataGrid, ColDef, ValueGetterParams, RowsProp, RowProps, StateChangeParams} from '@material-ui/data-grid';
+import {ColDef, DataGrid} from '@material-ui/data-grid';
+
 import {RU_LOCALE_TEXT} from "@components/addons/grid_ru";
 import {renderCellExpand} from "@components/addons/GridCellExpand"
 import CustomGridPagination from "@components/addons/CustomGridPagination";
 import NoDataOverlay from "@components/addons/NoDataOverlay";
 
-import {NavLink , useLocation} from 'react-router-dom';
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {NavLink} from 'react-router-dom';
+import {
+    GridMinionItem,
+} from "@add_types/filters/minion_filters";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        table_cell_link : {
-            textDecoration : 'none',
-            color : theme.palette.text.primary
-        }
-    }),
-);
+
+import { useSelector} from "react-redux";
+
+import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
+import {RootState} from "@store/store";
+
+import {useStyles} from "@pages/Minions/styles";
+
+import {filterMinions} from "@pages/Minions/filters";
+import {FilterBlock} from "@pages/Minions/filterBlock";
+
 
 function Minions() {
     const classes = useStyles()
 
-    const [minions,setMinions] = useState<RowsProp>([])
+    const filters = useSelector((state:RootState)=>state.filter)
 
+    const [minions,setMinions] = useState<GridMinionItem[]>([])
     const [loading, setLoading] = useState(true)
+
+    useEffect(()=>{
+        setLoading(true);
+        fetch('/api/minion/').then(response=>response.json()).then(result=>{
+            setLoading(false)
+            setMinions(result)
+        })
+    },[])
 
     const columns: ColDef[] = [
         { field: 'node_name', headerName: 'Компьютер', flex: 1,
             renderCell: params => {
-                console.log(params.row.id)
                 return  (
                     <NavLink to={`/minions/${params.row.id}`} className={classes.table_cell_link} >
                         {params.value}
@@ -36,7 +50,7 @@ function Minions() {
                 )
             }
         },
-        { field: 'selialnumber', headerName: 'Серийный номер', width: 180, renderCell: renderCellExpand },
+        { field: 'serialnumber', headerName: 'Серийный номер', width: 180, renderCell: renderCellExpand },
         { field: 'ip', headerName: 'IP адрес', width: 210, renderCell: renderCellExpand},
         { field: 'mac', headerName: 'MAC адрес', width: 210, renderCell: renderCellExpand},
         { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1, renderCell: renderCellExpand},
@@ -60,26 +74,21 @@ function Minions() {
         }
     ];
 
-
-    useEffect(()=>{
-        setLoading(true);
-        fetch('/api/minion/').then(response=>response.json()).then(result=>{
-            setLoading(false)
-            setMinions(result)
-        })
-    },[])
-
     return (
         <>
+            <CssBaseline />
             <Grid container  direction={"row"}>
 
                 <Grid item xs={12}>
                     <h2>Зарегистрированные компьютеры</h2>
                 </Grid>
+                <Grid item xs={6}>
+                    <FilterBlock />
+                </Grid>
 
                 <Grid item xs={12}>
                     <div style={{ height: '78vh', width: '100%' }}>
-                        <DataGrid rows={minions}
+                        <DataGrid rows={filterMinions(minions,filters)}
                                   columns={columns}
                                   // pageSize={12}
                                   autoPageSize={true}
