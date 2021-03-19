@@ -98,6 +98,7 @@ function Minions() {
                                   // onStateChange={onStateChange}
                                   density={"compact"}
                                   // hideFooterPagination={true}
+                                  disableColumnFilter
                                   components={{
                                       NoRowsOverlay: NoDataOverlay,
                                       Pagination : CustomGridPagination
