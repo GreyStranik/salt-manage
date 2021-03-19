@@ -24,7 +24,7 @@ export enum CompareType {
 }
 
 export const NODE_NAME = "node_name"
-export const SERIALNUBLER = "serialnumber"
+export const SERIALNUMBER = "serialnumber"
 export const IP = "ip"
 export const MAC = "mac"
 export const FIO_USER = "fio_user"
@@ -33,7 +33,7 @@ export const ROOM = "room"
 export const CREATE_AT = "created_at"
 export const UPDATED_AT = "updated_at"
 
-export type FilterField = typeof NODE_NAME | typeof SERIALNUBLER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE | typeof ROOM | typeof CREATE_AT | typeof UPDATED_AT
+export type FilterField = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE | typeof ROOM | typeof CREATE_AT | typeof UPDATED_AT
 
 export interface CompareItem {
     field : FilterField
