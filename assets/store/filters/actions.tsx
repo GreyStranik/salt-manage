@@ -41,6 +41,6 @@ export const removeFilter = (field:FilterField):FilterActions => ({
     payload: field
 })
 
-export const crearFilters = ():FilterActions => ({
+export const clearFilters = ():FilterActions => ({
     type: ALL_MINIONS
 })
