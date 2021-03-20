@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\AssignedStates;
 use App\Entity\Disk;
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
@@ -10,6 +11,7 @@ use App\Entity\Helpers\Os;
 use App\Entity\Helpers\OsFullName;
 use App\Entity\Helpers\ProductName;
 use App\Entity\Helpers\Soft;
+use App\Entity\Helpers\State;
 use App\Entity\Helpers\Type;
 use App\Entity\Helpers\TypeDep;
 use App\Entity\InstalledSoftware;
@@ -300,6 +302,39 @@ class MinionController extends AbstractController
                 ->setUsed($disk_info['used']);
 
             $em->persist($disk);
+        }
+
+
+        $states = array_key_exists('states',$data) ? $data['states'] : [];
+        $old_states = $minion->getAssignedStates();
+        foreach ($old_states as $old_state){
+            $state_name = $old_state->getState();
+            if(!in_array($state_name->getName(),$states)){
+                $em->remove($old_state);
+            }
+        }
+
+        foreach ($states as $state_info){
+
+            $state = $this->getDoctrine()->getRepository(State::class)->findOneBy([
+                'name' => $state_info
+            ]);
+            if (!$state){
+                $state = new State();
+                $state->setName($state_info);
+                $em->persist($state);
+            }
+            $assigned_states = $this->getDoctrine()->getRepository(AssignedStates::class)->findOneBy([
+                'minion' => $minion,
+                'state' => $state
+            ]);
+            if (!$assigned_states){
+                $assigned_states = new AssignedStates();
+                $assigned_states->setMinion($minion)->setState($state);
+                $em->persist($assigned_states);
+            }
+
+
         }
 
         $em->persist($minion);
