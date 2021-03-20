@@ -162,12 +162,18 @@ class Minion
      */
     private $os_full_name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AssignedStates::class, mappedBy="minion")
+     */
+    private $assignedStates;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
         $this->networks = new ArrayCollection();
         $this->installedSoftware = new ArrayCollection();
         $this->disks = new ArrayCollection();
+        $this->assignedStates = new ArrayCollection();
     }
 
     /**
@@ -488,6 +494,36 @@ class Minion
     public function setOsFullName(?OsFullName $os_full_name): self
     {
         $this->os_full_name = $os_full_name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AssignedStates[]
+     */
+    public function getAssignedStates(): Collection
+    {
+        return $this->assignedStates;
+    }
+
+    public function addAssignedState(AssignedStates $assignedState): self
+    {
+        if (!$this->assignedStates->contains($assignedState)) {
+            $this->assignedStates[] = $assignedState;
+            $assignedState->setMinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedState(AssignedStates $assignedState): self
+    {
+        if ($this->assignedStates->removeElement($assignedState)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedState->getMinion() === $this) {
+                $assignedState->setMinion(null);
+            }
+        }
 
         return $this;
     }
