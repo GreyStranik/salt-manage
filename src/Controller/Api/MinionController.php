@@ -425,6 +425,11 @@ class MinionController extends AbstractController
             ];
         }
 
+        $states = $minion->getAssignedStates();
+        $state_list = [];
+        foreach ($states as $state){
+            $state_list[] = $state->getState()->getName();
+        }
 
         $data = [
             'node_name' => $minion->getNodeName(),
@@ -448,6 +453,7 @@ class MinionController extends AbstractController
             'disks' => $disks_info,
             'disks_ordered' => $disks_ordered,
             'soft' => $soft_list,
+            'states' => $state_list,
             'created_at' => $minion->getCreatedAt(),
             'updated_at' => $minion->getUpdatedAt()
 

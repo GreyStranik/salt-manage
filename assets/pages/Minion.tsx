@@ -21,6 +21,7 @@ import MinionNetworkInfo from "@components/MinionDetail/MinionNetworkInfo";
 import MinionDiskInfo from "@components/MinionDetail/MinionDiskInfo";
 import MinionSoftInfo from "@components/MinionDetail/MinionSoftInfo";
 import Skeleton from "@material-ui/lab/Skeleton";
+import MinionStates from "@components/MinionDetail/MinionStates";
 
 interface RouteParams {
     id: string
@@ -85,9 +86,11 @@ function Minion(){
                 created_at: new Date(result['created_at']),
                 updated_at: new Date(result['updated_at'])
             }
+            const states = result['states']
             const data:MinionInfo = {
                 id,
-                disk, detail, network, soft, user
+                disk, detail, network, soft, user,
+                states
             }
             console.log(data)
             setInfo(data)
@@ -136,6 +139,10 @@ function Minion(){
 
                                         <Grid item sm={12}>
                                             <MinionNetworkInfo network={info?.network}/>
+                                        </Grid>
+                                        
+                                        <Grid item sm={12}>
+                                            <MinionStates states={info?.states}/>
                                         </Grid>
                                     </Grid>
 

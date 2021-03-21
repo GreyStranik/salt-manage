@@ -40,6 +40,17 @@ const useStyles = makeStyles((theme:Theme) =>
         disk_param_value : {
             fontWeight: 600,
             color: theme.palette.primary.main
+        },
+        state_block : {
+            display: 'flex'
+        },
+        state_item : {
+            backgroundColor: theme.palette.primary.main,
+            margin: theme.spacing(0.8),
+            padding: theme.spacing(1),
+            color: theme.palette.getContrastText(theme.palette.primary.main),
+            borderRadius: '3px',
+            textTransform: 'uppercase'
         }
 
     })

@@ -11,6 +11,7 @@ export interface MinionInfo {
     network? : MinionNetwork[]
     disk? : MinionDisk[]
     soft : MinionSoft[]
+    states : string[]
 }
 
 export interface MinionDetail {
