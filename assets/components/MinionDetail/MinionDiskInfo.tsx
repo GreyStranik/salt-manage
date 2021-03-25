@@ -53,7 +53,10 @@ function MinionDiskInfo(data:IDiskList){
                                         <CardActionArea key={index} className={classes.disk_block}>
 
                                             <div className={classes.item}>
-                                                <Typography variant={"body1"} className={classes.disk_name}>{item.name} ({item.filesystem})</Typography>
+                                                <Typography variant={"body1"} className={classes.disk_name}>
+                                                    {item.name!==item.filesystem ? <>{item.name} ({item.filesystem})</> : <>{item.name}</>  }
+
+                                                </Typography>
                                                 <Typography variant={"body1"} className={classes.disk_param_name}>Доступно <span className={classes.disk_param_value}>{ numeral(item.available*1000).format('0.00 b') } </span></Typography>
                                             </div>
 
