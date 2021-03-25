@@ -85,7 +85,7 @@ function MinionSoftInfo(data:ISoftList){
                         <DataGrid
                             columns={columns}
                             rows={soft}
-                            loading={!soft.length}
+                            loading={data.soft===undefined}
                             autoPageSize={true}
                             disableSelectionOnClick={true}
                             localeText={RU_LOCALE_TEXT}
