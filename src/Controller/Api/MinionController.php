@@ -279,7 +279,7 @@ class MinionController extends AbstractController
         foreach ($old_disks as $old_disk){
             $disk_name = $old_disk->getName();
             $logger->debug(
-                'DISK_NAME'.$disk_name
+                'DISK_NAME '.$disk_name
             );
             if (!array_key_exists($disk_name,$data['disk_info'])){
                 $em->remove($old_disk);
@@ -295,11 +295,11 @@ class MinionController extends AbstractController
                 $disk = new Disk();
                 $disk->setName($disk_name)->setMinion($minion);
             }
-            $disk->setAvailable($disk_info['available'])
-                ->setCapacity($disk_info['capacity'])
-                ->setBlocks($disk_info['1K-blocks'])
-                ->setFilesystem($disk_info['filesystem'])
-                ->setUsed($disk_info['used']);
+            $disk->setAvailable(! is_null($disk_info['available']) ? $disk_info['available'] : "0" )
+                ->setCapacity(! is_null($disk_info['capacity']) ? $disk_info['capacity'] : "0")
+                ->setBlocks(! is_null($disk_info['1K-blocks']) ?  $disk_info['1K-blocks'] : "0" )
+                ->setFilesystem( $disk_info['filesystem'])
+                ->setUsed(! is_null($disk_info['used']) ? $disk_info['used'] : "0");
 
             $em->persist($disk);
         }
