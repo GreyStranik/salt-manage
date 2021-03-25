@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme:Theme) =>
             color: theme.palette.primary.main
         },
         state_block : {
-            display: 'flex'
+            display: 'flex',
+            flexWrap: 'wrap'
         },
         state_item : {
             backgroundColor: theme.palette.primary.main,
