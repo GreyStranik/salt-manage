@@ -167,6 +167,11 @@ class Minion
      */
     private $assignedStates;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ConnectedMonitors::class, mappedBy="minion")
+     */
+    private $connectedMonitors;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
@@ -174,6 +179,7 @@ class Minion
         $this->installedSoftware = new ArrayCollection();
         $this->disks = new ArrayCollection();
         $this->assignedStates = new ArrayCollection();
+        $this->connectedMonitors = new ArrayCollection();
     }
 
     /**
@@ -522,6 +528,36 @@ class Minion
             // set the owning side to null (unless already changed)
             if ($assignedState->getMinion() === $this) {
                 $assignedState->setMinion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConnectedMonitors[]
+     */
+    public function getConnectedMonitors(): Collection
+    {
+        return $this->connectedMonitors;
+    }
+
+    public function addConnectedMonitor(ConnectedMonitors $connectedMonitor): self
+    {
+        if (!$this->connectedMonitors->contains($connectedMonitor)) {
+            $this->connectedMonitors[] = $connectedMonitor;
+            $connectedMonitor->setMinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConnectedMonitor(ConnectedMonitors $connectedMonitor): self
+    {
+        if ($this->connectedMonitors->removeElement($connectedMonitor)) {
+            // set the owning side to null (unless already changed)
+            if ($connectedMonitor->getMinion() === $this) {
+                $connectedMonitor->setMinion(null);
             }
         }
 

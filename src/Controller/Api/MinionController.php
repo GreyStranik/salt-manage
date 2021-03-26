@@ -3,7 +3,10 @@
 namespace App\Controller\Api;
 
 use App\Entity\AssignedStates;
+use App\Entity\ConnectedMonitors;
 use App\Entity\Disk;
+use App\Entity\Equipment\Monitor;
+use App\Entity\Equipment\MonitorModels;
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
@@ -14,10 +17,12 @@ use App\Entity\Helpers\Soft;
 use App\Entity\Helpers\State;
 use App\Entity\Helpers\Type;
 use App\Entity\Helpers\TypeDep;
+use App\Entity\Helpers\Vendor;
 use App\Entity\InstalledSoftware;
 use App\Entity\IPs;
 use App\Entity\Minion;
 use App\Entity\Network;
+use App\Repository\Equipment\MonitorRepository;
 use App\Repository\Helpers\DepartmentRepository;
 use App\Repository\MinionRepository;
 use Psr\Log\LoggerInterface;
@@ -337,7 +342,83 @@ class MinionController extends AbstractController
 
         }
 
+        $monitors = array_key_exists('monitors',$data) ? $data['monitors'] : [];
+        $logger->debug("MONITOR === ",$monitors);
+        $old_monitors = $minion->getConnectedMonitors();
+        foreach ($old_monitors as $old_monitor){
+            $mnt = $old_monitor->getMonitor();
+            $serial_num = $mnt->getSerial();
+            $logger->debug($serial_num);
+            $model_name = $mnt->getModel()->getName();
+            $logger->debug($model_name);
+            $connected = false;
+            foreach ($monitors as $monitor){
+                if ( ($monitor['serial']===$serial_num) && ($monitor['model']===$model_name) ) {
+                    $connected = true;
+                    break;
+                }
+            }
+            if (!$connected){
+                $old_monitor->setConnected(false);
+                $em->persist($old_monitor);
+            }
+
+        }
+        foreach ($monitors as $monitor){
+            $serial = $monitor['serial'];
+            $year = $monitor['year'];
+            $week = $monitor['week'];
+            $model_str = $monitor['model'];
+            $vendor_str = $monitor['vendor'];
+
+            $vendor = $this->getDoctrine()->getRepository(Vendor::class)->findOneBy([
+                'name' => $vendor_str
+            ]);
+            if(!$vendor){
+                $vendor = new Vendor();
+                $vendor->setName($vendor_str);
+                $em->persist($vendor);
+            }
+
+            $model = $this->getDoctrine()->getRepository(MonitorModels::class)->findOneBy([
+                'name' => $model_str,
+                'vendor' => $vendor
+            ]);
+            if(!$model){
+                $model = new MonitorModels();
+                $model->setName($model_str)->setVendor($vendor);
+                $em->persist($model);
+            }
+
+            $c_monitor = $this->getDoctrine()->getRepository(Monitor::class)->findOneBy([
+                'serial' => $serial,
+                'model' => $model
+            ]);
+            if(!$c_monitor){
+                $c_monitor = new Monitor();
+                $c_monitor->setSerial($serial)->setModel($model)->setYear($year)->setYear($year)->setWeek($week);
+                $em->persist($c_monitor);
+            }
+
+            $connected_monitor = $this->getDoctrine()->getRepository(ConnectedMonitors::class)->findOneBy([
+                'minion' => $minion,
+                'monitor' => $c_monitor,
+                'connected' => true
+            ]);
+            if (!$connected_monitor){
+                $connected_monitor = new ConnectedMonitors();
+                $connected_monitor->setMinion($minion)->setMonitor($c_monitor)
+                                  ->setConnected(true)->setCdate(new \DateTime());
+                $em->persist($connected_monitor);
+            }
+
+
+        }
+
+
+
         $em->persist($minion);
+
         $em->flush();
 
         return $this->json(
