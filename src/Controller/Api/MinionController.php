@@ -4,9 +4,12 @@ namespace App\Controller\Api;
 
 use App\Entity\AssignedStates;
 use App\Entity\ConnectedMonitors;
+use App\Entity\ConnectedPrinters;
 use App\Entity\Disk;
 use App\Entity\Equipment\Monitor;
 use App\Entity\Equipment\MonitorModels;
+use App\Entity\Equipment\Printer;
+use App\Entity\Equipment\PrinterModel;
 use App\Entity\Helpers\CpuModel;
 use App\Entity\Helpers\Department;
 use App\Entity\Helpers\Manufacturer;
@@ -415,6 +418,75 @@ class MinionController extends AbstractController
 
         }
 
+        ///printers
+        $printers = array_key_exists('printers',$data) ? $data['printers'] : [];
+        $old_printers = $minion->getConnectedPrinters();
+        foreach ($old_printers as $old_printer){
+            $mnt = $old_printer->getPrinter();
+            $serial_num = $mnt->getSerial();
+            $model_name = $mnt->getModel()->getName();
+            $connected = false;
+            foreach ($printers as $printer){
+                if ( ($printer['serial']===$serial_num) && ($printer['model']===$model_name) ) {
+                    $connected = true;
+                    break;
+                }
+            }
+            if (!$connected){
+                $old_printer->setConnected(false);
+                $em->persist($old_printer);
+            }
+
+        }
+        foreach ($printers as $printer){
+            $serial = $printer['serial'];
+            $model_str = $printer['model'];
+            $vendor_str = $printer['vendor'];
+
+            $vendor = $this->getDoctrine()->getRepository(Vendor::class)->findOneBy([
+                'name' => $vendor_str
+            ]);
+            if(!$vendor){
+                $vendor = new Vendor();
+                $vendor->setName($vendor_str);
+                $em->persist($vendor);
+            }
+
+            $model = $this->getDoctrine()->getRepository(PrinterModel::class)->findOneBy([
+                'name' => $model_str,
+                'vendor' => $vendor
+            ]);
+            if(!$model){
+                $model = new PrinterModel();
+                $model->setName($model_str)->setVendor($vendor);
+                $em->persist($model);
+            }
+
+            $c_printer = $this->getDoctrine()->getRepository(Printer::class)->findOneBy([
+                'serial' => $serial,
+                'model' => $model
+            ]);
+            if(!$c_printer){
+                $c_printer = new Printer();
+                $c_printer->setSerial($serial)->setModel($model);
+                $em->persist($c_printer);
+            }
+
+            $connected_printers = $this->getDoctrine()->getRepository(ConnectedPrinters::class)->findOneBy([
+                'minion' => $minion,
+                'printer' => $c_printer,
+                'connected' => true
+            ]);
+            if (!$connected_printers){
+                $connected_printers = new ConnectedPrinters();
+                $connected_printers->setMinion($minion)->setPrinter($c_printer)
+                    ->setConnected(true)->setCdate(new \DateTime());
+                $em->persist($connected_printers);
+            }
+
+
+        }
+        /// end printers
 
 
         $em->persist($minion);

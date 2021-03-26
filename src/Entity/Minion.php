@@ -172,6 +172,11 @@ class Minion
      */
     private $connectedMonitors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ConnectedPrinters::class, mappedBy="minion")
+     */
+    private $connectedPrinters;
+
     public function __construct(UuidInterface $uuid)
     {
         $this->id = $uuid;
@@ -180,6 +185,7 @@ class Minion
         $this->disks = new ArrayCollection();
         $this->assignedStates = new ArrayCollection();
         $this->connectedMonitors = new ArrayCollection();
+        $this->connectedPrinters = new ArrayCollection();
     }
 
     /**
@@ -558,6 +564,36 @@ class Minion
             // set the owning side to null (unless already changed)
             if ($connectedMonitor->getMinion() === $this) {
                 $connectedMonitor->setMinion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConnectedPrinters[]
+     */
+    public function getConnectedPrinters(): Collection
+    {
+        return $this->connectedPrinters;
+    }
+
+    public function addConnectedPrinter(ConnectedPrinters $connectedPrinter): self
+    {
+        if (!$this->connectedPrinters->contains($connectedPrinter)) {
+            $this->connectedPrinters[] = $connectedPrinter;
+            $connectedPrinter->setMinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConnectedPrinter(ConnectedPrinters $connectedPrinter): self
+    {
+        if ($this->connectedPrinters->removeElement($connectedPrinter)) {
+            // set the owning side to null (unless already changed)
+            if ($connectedPrinter->getMinion() === $this) {
+                $connectedPrinter->setMinion(null);
             }
         }
 
