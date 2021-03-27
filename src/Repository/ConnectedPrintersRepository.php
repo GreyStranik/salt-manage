@@ -19,6 +19,20 @@ class ConnectedPrintersRepository extends ServiceEntityRepository
         parent::__construct($registry, ConnectedPrinters::class);
     }
 
+    /**
+     * @param $minion
+     * @return ConnectedPrinters[]
+     */
+    public function findActual($minion){
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.connected = :connected')
+            ->andWhere('m.minion = :minion')
+            ->setParameter('connected',true)
+            ->setParameter('minion',$minion)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return ConnectedPrinters[] Returns an array of ConnectedPrinters objects
     //  */

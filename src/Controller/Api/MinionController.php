@@ -26,6 +26,7 @@ use App\Entity\IPs;
 use App\Entity\Minion;
 use App\Entity\Network;
 use App\Repository\ConnectedMonitorsRepository;
+use App\Repository\ConnectedPrintersRepository;
 use App\Repository\Equipment\MonitorRepository;
 use App\Repository\Helpers\DepartmentRepository;
 use App\Repository\MinionRepository;
@@ -529,7 +530,7 @@ class MinionController extends AbstractController
      * @param MinionRepository $minionRepository
      * @return JsonResponse
      */
-    public function minion_info(string $uuid, MinionRepository $minionRepository,ConnectedMonitorsRepository $connectedMonitorsRepository):JsonResponse
+    public function minion_info(string $uuid, MinionRepository $minionRepository,ConnectedMonitorsRepository $connectedMonitorsRepository, ConnectedPrintersRepository $connectedPrintersRepository):JsonResponse
     {
         $minion = $minionRepository->find($uuid);
 
@@ -595,6 +596,15 @@ class MinionController extends AbstractController
             ];
         }
 
+        $printers = $connectedPrintersRepository->findActual($minion);
+        $printer_list = [];
+        foreach ($printers as $printer){
+            $printer_list[] = [
+                'serial' => $printer->getPrinter()->getSerial(),
+                'model' => $printer->getPrinter()->getModel()->getName()
+            ];
+        }
+
         $data = [
             'node_name' => $minion->getNodeName(),
             'serialnumber' => $minion->getSerialnumber(),
@@ -619,6 +629,7 @@ class MinionController extends AbstractController
             'soft' => $soft_list,
             'states' => $state_list,
             'monitors' => $monitor_list,
+            'printers' => $printer_list,
             'created_at' => $minion->getCreatedAt(),
             'updated_at' => $minion->getUpdatedAt()
 
