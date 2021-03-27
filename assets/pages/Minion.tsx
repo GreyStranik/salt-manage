@@ -5,12 +5,13 @@ import {createStyles, makeStyles} from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import {useParams} from 'react-router'
 import {
+    Equipment,
     MinionDetail,
     MinionDisk,
     MinionInfo,
     MinionNetwork,
     MinionSoft,
-    MinionUser
+    MinionUser, Monitor, Printer
 } from "../interfaces/MinionDetailInterfaces";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -22,6 +23,7 @@ import MinionDiskInfo from "@components/MinionDetail/MinionDiskInfo";
 import MinionSoftInfo from "@components/MinionDetail/MinionSoftInfo";
 import Skeleton from "@material-ui/lab/Skeleton";
 import MinionStates from "@components/MinionDetail/MinionStates";
+import MinionEquipment from "@components/MinionDetail/MinionEquipment";
 
 interface RouteParams {
     id: string
@@ -64,6 +66,9 @@ function Minion(){
             const network:MinionNetwork[] = result['network']
             const disk:MinionDisk[] = result['disks']
             const soft:MinionSoft[] = result['soft']
+            const monitors:Monitor[] = result['monitors'];
+            const printers:Printer[] = result['printers'];
+            const equipment:Equipment = {monitors,printers}
             const user:MinionUser = {
                 room: result['room'],
                 department: result['department'],
@@ -90,7 +95,7 @@ function Minion(){
             const data:MinionInfo = {
                 id,
                 disk, detail, network, soft, user,
-                states
+                states, equipment
             }
             console.log(data)
             setInfo(data)
@@ -155,6 +160,10 @@ function Minion(){
                                         <Grid item sm={12}>
                                             <MinionDiskInfo disk={info?.disk} />
 
+                                        </Grid>
+
+                                        <Grid item sm={12}>
+                                            <MinionEquipment {...info?.equipment} />
                                         </Grid>
 
                                     </Grid>

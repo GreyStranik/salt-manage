@@ -12,6 +12,7 @@ export interface MinionInfo {
     disk? : MinionDisk[]
     soft : MinionSoft[]
     states : string[]
+    equipment: Equipment
 }
 
 export interface MinionDetail {
@@ -58,4 +59,19 @@ export interface MinionSoft {
     soft_id : string
     size : number
     version : number
+}
+
+export interface Monitor {
+    serial: string
+    model: string
+}
+
+export interface Printer {
+    serial: string
+    model: string
+}
+
+export interface Equipment {
+    monitors: Monitor[]
+    printers: Printer[]
 }
