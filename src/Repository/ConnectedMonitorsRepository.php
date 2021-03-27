@@ -19,6 +19,16 @@ class ConnectedMonitorsRepository extends ServiceEntityRepository
         parent::__construct($registry, ConnectedMonitors::class);
     }
 
+
+    public function findActual($minion){
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.connected = :connected')
+            ->andWhere('m.minion = :minion')
+            ->setParameter('connected',true)
+            ->setParameter('minion',$minion)
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return ConnectedMonitors[] Returns an array of ConnectedMonitors objects
     //  */

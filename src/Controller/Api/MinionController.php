@@ -25,6 +25,7 @@ use App\Entity\InstalledSoftware;
 use App\Entity\IPs;
 use App\Entity\Minion;
 use App\Entity\Network;
+use App\Repository\ConnectedMonitorsRepository;
 use App\Repository\Equipment\MonitorRepository;
 use App\Repository\Helpers\DepartmentRepository;
 use App\Repository\MinionRepository;
@@ -528,7 +529,7 @@ class MinionController extends AbstractController
      * @param MinionRepository $minionRepository
      * @return JsonResponse
      */
-    public function minion_info(string $uuid, MinionRepository $minionRepository):JsonResponse
+    public function minion_info(string $uuid, MinionRepository $minionRepository,ConnectedMonitorsRepository $connectedMonitorsRepository):JsonResponse
     {
         $minion = $minionRepository->find($uuid);
 
@@ -584,6 +585,16 @@ class MinionController extends AbstractController
             $state_list[] = $state->getState()->getName();
         }
 
+       // $monitors = $minion->getConnectedMonitors();
+        $monitors = $connectedMonitorsRepository->findActual($minion);
+        $monitor_list = [];
+        foreach ($monitors as $monitor){
+            $monitor_list[] = [
+                'serial' => $monitor->getMonitor()->getSerial(),
+                'model' => $monitor->getMonitor()->getModel()->getName()
+            ];
+        }
+
         $data = [
             'node_name' => $minion->getNodeName(),
             'serialnumber' => $minion->getSerialnumber(),
@@ -607,6 +618,7 @@ class MinionController extends AbstractController
             'disks_ordered' => $disks_ordered,
             'soft' => $soft_list,
             'states' => $state_list,
+            'monitors' => $monitor_list,
             'created_at' => $minion->getCreatedAt(),
             'updated_at' => $minion->getUpdatedAt()
 
