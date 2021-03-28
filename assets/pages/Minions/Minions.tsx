@@ -57,6 +57,7 @@ function Minions() {
         { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1, renderCell: renderCellExpand},
         { field: 'user_phone', headerName: 'Телефон', width: 200, renderCell: renderCellExpand},
         { field: 'room', headerName: 'Кабинет', width: 180, renderCell: renderCellExpand},
+        { field: "department", headerName: 'Подразделение', flex: 1, renderCell: renderCellExpand, hide: true},
         {
             field: 'created_at',
             headerName: 'Создано',

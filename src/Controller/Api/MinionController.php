@@ -84,6 +84,7 @@ class MinionController extends AbstractController
                 'user_phone' => $minion->getUserPhone(),
                 'ip' => implode(", ",$str_network),
                 'mac' => implode(', ', $str_mac),
+                'department' => $minion->getDepartment()->getName(),
                 'created_at' => $minion->getCreatedAt(),
                 'updated_at' => $minion->getUpdatedAt()
             ];
