@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
+import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import Select from "@material-ui/core/Select/Select";
@@ -74,17 +75,20 @@ export function DateSelect(props:DateSelectProps){
                     label={props.title}
                 />
 
-                <Select
-                    defaultValue={CompareType.EQUAL}
-                    variant={"outlined"}
-                    value={compare}
-                    onChange={handleCompareTypeChanged}
-                    style={{minWidth:150}}
-                >
-                    <MenuItem value={CompareType.EQUAL}>=</MenuItem>
-                    <MenuItem value={CompareType.LESS_AND_EQUAL}>Ранее</MenuItem>
-                    <MenuItem value={CompareType.MORE_AND_EQUAL}>Позднее</MenuItem>
-                </Select>
+                <FormControl variant={"outlined"} size={"small"}>
+                    <Select
+                        defaultValue={CompareType.EQUAL}
+                        variant={"outlined"}
+                        value={compare}
+                        onChange={handleCompareTypeChanged}
+                        style={{minWidth:150}}
+                        // size={"small"}
+                    >
+                        <MenuItem value={CompareType.EQUAL}>=</MenuItem>
+                        <MenuItem value={CompareType.LESS_AND_EQUAL}>Ранее</MenuItem>
+                        <MenuItem value={CompareType.MORE_AND_EQUAL}>Позднее</MenuItem>
+                    </Select>
+                </FormControl>
 
                 <MuiPickersUtilsProvider utils={MomentUtils} libInstance={moment} locale={'ru'} >
                     <KeyboardDatePicker autoOk
@@ -94,6 +98,7 @@ export function DateSelect(props:DateSelectProps){
                                         value={selectedDate}
                                         InputAdornmentProps={{ position: "start" }}
                                         onChange={(dateComparer,value)=>handleDateChange(dateComparer,value)}
+                                        size={"small"}
 
                     />
                 </MuiPickersUtilsProvider>

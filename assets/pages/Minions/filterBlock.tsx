@@ -67,6 +67,8 @@ export function FilterBlock() {
                 </Grid>
                 <Grid item xs={12}>
                     <DateSelect title={"Дата регистрации миньона"} field={CREATE_AT} /*compare={CompareType.MORE_AND_EQUAL} date={new Date()} */ />
+                </Grid>
+                <Grid item xs={12}>
                     <DateSelect title={"Дата обновления миньона"} field={UPDATED_AT}/>
                 </Grid>
             </Grid>
