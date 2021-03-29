@@ -10,6 +10,7 @@ import {
     NODE_NAME,
     ROOM,
     SERIALNUMBER,
+    TYPE,
     UPDATED_AT,
     USER_PHONE
 } from "@add_types/filters/minion_filters";
@@ -49,7 +50,9 @@ export function FilterBlock() {
                 <Grid item xs={6}>
                     <FilteredSelectableElement title={"Подразделение"} field={DEPARTMENT} />
                 </Grid>
-
+                <Grid item xs={6}>
+                    <FilteredSelectableElement title={"Тип"} field={TYPE}/>
+                </Grid>
                 <Grid item xs={12}>
                     <DateSelect title={"Дата регистрации миньона"} field={CREATE_AT} /*compare={CompareType.MORE_AND_EQUAL} date={new Date()} */ />
                     <DateSelect title={"Дата обновления миньона"} field={UPDATED_AT}/>

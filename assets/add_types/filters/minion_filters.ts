@@ -9,6 +9,7 @@ export interface GridMinionItem {
     user_phone : string,
     room : string,
     department : string,
+    type : string
     created_at : string,
     updated_at : string
 }
@@ -32,10 +33,11 @@ export const FIO_USER = "fio_user"
 export const USER_PHONE = "user_phone"
 export const ROOM = "room"
 export const DEPARTMENT = "department"
+export const TYPE = "type"
 export const CREATE_AT = "created_at"
 export const UPDATED_AT = "updated_at"
 
-export type FilterField = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE | typeof ROOM | typeof DEPARTMENT | typeof CREATE_AT | typeof UPDATED_AT
+export type FilterField = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE | typeof ROOM | typeof DEPARTMENT | typeof TYPE | typeof CREATE_AT | typeof UPDATED_AT
 
 export interface CompareItem {
     field : FilterField
