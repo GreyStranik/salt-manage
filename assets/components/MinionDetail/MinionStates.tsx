@@ -24,7 +24,7 @@ export default function MinionStates(data:IMinionStates) {
                         data.states ? (
                                 <div className={classes.state_block}>
                                     {
-                                        data.states.map(state=><Typography variant={"body1"} className={classes.state_item}>{state}</Typography>)
+                                        data.states.map(state=><Typography variant={"body2"} className={classes.state_item}>{state}</Typography>)
                                     }
                                 </div>
 
