@@ -30,14 +30,16 @@ function DataChart({data, height=250, legendWidth=160, field }:ChartProps){
 
     const filter = (value:string) => {
 
-        if (value!=="Прочие"){
-            const item:CompareItem = {
-                field:field as FilterField,
-                compare: CompareType.EQUAL,
-                value: value
+        if (field) {
+            if (value!=="Прочие"){
+                const item:CompareItem = {
+                    field:field as FilterField,
+                    compare: CompareType.EQUAL,
+                    value: value
+                }
+                dispatch(filterOnlyBy(item))
+                history.push("/minions")
             }
-            dispatch(filterOnlyBy(item))
-            history.push("/minions")
         }
     }
 
