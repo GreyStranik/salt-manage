@@ -57,7 +57,7 @@ export default function FilteredSelectableElement(props:FilteredSelectableElemen
 
     return (
         <>
-            <FormControl className={classes.formControl} variant={"outlined"} fullWidth>
+            <FormControl className={classes.formControl} variant={"outlined"} size={"small"} fullWidth>
                 <InputLabel>{props.title}</InputLabel>
                 <Select
                     defaultValue={""}
