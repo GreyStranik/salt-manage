@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import {DEPARTMENT} from "@add_types/filters/minion_filters";
 
 export default function DepartmentsCard(){
 
@@ -22,7 +23,7 @@ export default function DepartmentsCard(){
                     <CardHeader title={"Подразделения"} subheader={"Подразделения организации"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={170} legendWidth={240} />
+                        <DataChart data={data} height={170} legendWidth={240} field={DEPARTMENT} />
 
                     </CardContent>
                 </Card>

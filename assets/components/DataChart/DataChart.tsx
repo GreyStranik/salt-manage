@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 
-import {Cell, Pie, PieChart, Legend, Sector, ResponsiveContainer} from "recharts";
+import {Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector} from "recharts";
+import {CompareItem, CompareType, FilterField} from "@add_types/filters/minion_filters";
+import {useDispatch} from "react-redux";
+import {filterOnlyBy} from "@store/filters/actions";
+import {useHistory} from "react-router";
 
 export interface ChartDataItem {
     name : string,
@@ -11,15 +15,31 @@ export interface ChartProps {
     data : ChartDataItem[],
     height?: number,
     legendWidth?: number
-
+    field?: FilterField
 }
 
-function DataChart({data, height=250, legendWidth=160 }:ChartProps){
+function DataChart({data, height=250, legendWidth=160, field }:ChartProps){
+
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     const [activeIndex, setActiveIndex] = useState(-1)
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28',
         '#FF8042','#D8241F','#BCBF00'];
+
+    const filter = (value:string) => {
+
+        if (value!=="Прочие"){
+            const item:CompareItem = {
+                field:field as FilterField,
+                compare: CompareType.EQUAL,
+                value: value
+            }
+            dispatch(filterOnlyBy(item))
+            history.push("/minions")
+        }
+    }
 
     const onPieEnter = (_:any,index:number) => {
         setActiveIndex(index)
@@ -27,6 +47,7 @@ function DataChart({data, height=250, legendWidth=160 }:ChartProps){
 
     const onPieClick = (d:any,index:number) => {
         console.log(d.name)
+        filter(d.name)
     }
 
     const activeSector = (props : any) => {
@@ -81,6 +102,7 @@ function DataChart({data, height=250, legendWidth=160 }:ChartProps){
 
     const handleLegendClick = (e:any) => {
         console.log(e.value)
+        filter(e.value)
     }
 
     return (
