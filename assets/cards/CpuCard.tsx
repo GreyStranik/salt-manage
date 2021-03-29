@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from "@material-ui/core/Grid";
 import DataChart from "@components/DataChart";
 import {ChartProps, ChartDataItem} from "@components/DataChart/DataChart";
+import {CPU_MODEL} from "@add_types/filters/minion_filters";
 
 export default function CpuCard(){
 
@@ -21,9 +22,7 @@ export default function CpuCard(){
                 <Card>
                     <CardHeader title={"CPU"} subheader={"Зоопарк процессоров"}/>
                     <CardContent>
-
-                        <DataChart data={data} height={170} legendWidth={240} />
-
+                        <DataChart data={data} height={170} legendWidth={240} field={CPU_MODEL} />
                     </CardContent>
                 </Card>
             </Grid>

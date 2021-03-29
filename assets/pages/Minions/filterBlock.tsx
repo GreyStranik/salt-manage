@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import {
+    CPU_MODEL,
     CREATE_AT,
     DEPARTMENT,
     FIO_USER,
@@ -60,6 +61,9 @@ export function FilterBlock() {
                 </Grid>
                 <Grid item xs={6}>
                     <FilteredSelectableElement title={"Производитель"} field={MANUFACTURER} />
+                </Grid>
+                <Grid item xs={12}>
+                    <FilteredSelectableElement title={"ЦПУ"} field={CPU_MODEL}/>
                 </Grid>
                 <Grid item xs={12}>
                     <DateSelect title={"Дата регистрации миньона"} field={CREATE_AT} /*compare={CompareType.MORE_AND_EQUAL} date={new Date()} */ />

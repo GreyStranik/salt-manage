@@ -12,6 +12,7 @@ export interface GridMinionItem {
     type : string
     os : string
     manufacturer : string
+    cpu_model : string
     created_at : string,
     updated_at : string
 }
@@ -38,11 +39,12 @@ export const DEPARTMENT = "department"
 export const TYPE = "type"
 export const OS = "os"
 export const MANUFACTURER = "manufacturer"
+export const CPU_MODEL = "cpu_model"
 export const CREATE_AT = "created_at"
 export const UPDATED_AT = "updated_at"
 
 export type FilterField = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE |
-                          typeof ROOM | typeof DEPARTMENT | typeof TYPE | typeof OS | typeof MANUFACTURER |
+                          typeof ROOM | typeof DEPARTMENT | typeof TYPE | typeof OS | typeof MANUFACTURER | typeof CPU_MODEL |
                           typeof CREATE_AT | typeof UPDATED_AT
 
 export interface CompareItem {
