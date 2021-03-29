@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 
 import {
     CREATE_AT,
+    DEPARTMENT,
     FIO_USER,
     IP,
     MAC,
@@ -16,6 +17,7 @@ import {
 import {DateSelect} from "@pages/Minions/DateSelect";
 import {FilteredElement} from "@pages/Minions/filteredElement";
 import {useStyles} from "@pages/Minions/styles";
+import FilteredSelectableElement from "@pages/Minions/filteredSelectableElement";
 
 export function FilterBlock() {
 
@@ -43,6 +45,9 @@ export function FilterBlock() {
                 </Grid>
                 <Grid item xs={4}>
                     <FilteredElement title={"Кабинет"} field={ROOM}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <FilteredSelectableElement title={"Подразделение"} field={DEPARTMENT} />
                 </Grid>
 
                 <Grid item xs={12}>

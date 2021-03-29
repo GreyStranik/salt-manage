@@ -22,7 +22,7 @@ export function FilterAction() {
     const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
 
     const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) =>{
-        setOpen(true)
+        setOpen(!open)
     }
     const handleClose = () => {
         setOpen(false)
@@ -60,12 +60,12 @@ export function FilterAction() {
                     <Fade {...TransitionProps} timeout={350}>
 
                         <Paper >
-                            <ClickAwayListener onClickAway={handleClose}>
+                            {/*<ClickAwayListener onClickAway={handleClose}>*/}
                                 <Paper>
                                     <span className={classes.arrow} ref={setArrowRef} />
                                     <FilterBlock  />
                                 </Paper>
-                            </ClickAwayListener>
+                            {/*</ClickAwayListener>*/}
                         </Paper>
                     </Fade>
                 )}
