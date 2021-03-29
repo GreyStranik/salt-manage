@@ -7,6 +7,7 @@ import {
     FIO_USER,
     IP,
     MAC,
+    MANUFACTURER,
     NODE_NAME,
     OS,
     ROOM,
@@ -56,6 +57,9 @@ export function FilterBlock() {
                 </Grid>
                 <Grid item xs={6}>
                     <FilteredSelectableElement title={"ОС"} field={OS}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <FilteredSelectableElement title={"Производитель"} field={MANUFACTURER} />
                 </Grid>
                 <Grid item xs={12}>
                     <DateSelect title={"Дата регистрации миньона"} field={CREATE_AT} /*compare={CompareType.MORE_AND_EQUAL} date={new Date()} */ />

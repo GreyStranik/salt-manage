@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import {MANUFACTURER} from "@add_types/filters/minion_filters";
 
 export default function ManufacturerCard(){
 
@@ -21,9 +22,7 @@ export default function ManufacturerCard(){
                 <Card>
                     <CardHeader title={"Производители"} subheader={"Производители компьютеров"}/>
                     <CardContent>
-
-                        <DataChart data={data} height={170} />
-
+                        <DataChart data={data} height={170} field={MANUFACTURER} />
                     </CardContent>
                 </Card>
             </Grid>
