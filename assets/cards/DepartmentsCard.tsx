@@ -22,7 +22,7 @@ export default function DepartmentsCard(){
                     <CardHeader title={"Подразделения"} subheader={"Подразделения организации"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={170} />
+                        <DataChart data={data} height={170} legendWidth={240} />
 
                     </CardContent>
                 </Card>

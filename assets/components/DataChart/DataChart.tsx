@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import {Cell, Pie, PieChart, Legend, Sector} from "recharts";
+import {Cell, Pie, PieChart, Legend, Sector, ResponsiveContainer} from "recharts";
 
 export interface ChartDataItem {
     name : string,
@@ -9,13 +9,12 @@ export interface ChartDataItem {
 
 export interface ChartProps {
     data : ChartDataItem[],
-    width?: number,
     height?: number,
     legendWidth?: number
 
 }
 
-function DataChart({data, width=400, height=250, legendWidth=160 }:ChartProps){
+function DataChart({data, height=250, legendWidth=160 }:ChartProps){
 
     const [activeIndex, setActiveIndex] = useState(-1)
 
@@ -24,11 +23,13 @@ function DataChart({data, width=400, height=250, legendWidth=160 }:ChartProps){
 
     const onPieEnter = (_:any,index:number) => {
         setActiveIndex(index)
-        console.log(index)
+    }
+
+    const onPieClick = (d:any,index:number) => {
+        console.log(d.name)
     }
 
     const activeSector = (props : any) => {
-        console.log(props)
         const RADIAN = Math.PI / 180;
         const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
         const sin = Math.sin(-RADIAN * midAngle);
@@ -78,32 +79,40 @@ function DataChart({data, width=400, height=250, legendWidth=160 }:ChartProps){
         setActiveIndex(index)
     }
 
+    const handleLegendClick = (e:any) => {
+        console.log(e.value)
+    }
 
     return (
         <>
-            <PieChart width={width} height={height}>
-                <Legend onMouseEnter={handleLegendEnter}
-                        layout='vertical'
-                        verticalAlign='middle'
-                        align="right"
-                        width={legendWidth}
-                />
-                <Pie data={data}
-                     cx="50%" cy="50%"
-                     dataKey={"value"}
-                     innerRadius={60} outerRadius={80}
-                     paddingAngle={5}
-                     activeIndex={activeIndex}
-                     activeShape={activeSector}
-                     onMouseEnter={onPieEnter}
-                >
-                    {
-                        data.map((item,index)=>(
-                            <Cell key={`$(index)`} fill={COLORS[index]} />
-                        ))
-                    }
-                </Pie>
-            </PieChart>
+            <ResponsiveContainer height={height} >
+                <PieChart  height={height}>
+                    <Legend onMouseEnter={handleLegendEnter}
+                            onClick={handleLegendClick}
+                            layout='vertical'
+                            verticalAlign='middle'
+                            align="right"
+                            width={legendWidth}
+                    />
+                    <Pie data={data}
+                         cx="50%" cy="50%"
+                         dataKey={"value"}
+                         innerRadius={60} outerRadius={80}
+                         paddingAngle={5}
+                         activeIndex={activeIndex}
+                         activeShape={activeSector}
+                         onMouseEnter={onPieEnter}
+                         onClick={onPieClick}
+                    >
+                        {
+                            data.map((item,index)=>(
+                                <Cell key={`$(index)`} fill={COLORS[index]} />
+                            ))
+                        }
+                    </Pie>
+                </PieChart>
+            </ResponsiveContainer>
+
         </>
     )
 }
