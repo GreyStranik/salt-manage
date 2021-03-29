@@ -66,11 +66,11 @@ export default function FilteredSelectableElement(props:FilteredSelectableElemen
                     onChange={handleChange}
                     label={props.title}
                 >
-                    <MenuItem value={""}>Все подразделения</MenuItem>
+                    <MenuItem value={""}>Все </MenuItem>
                     {
                         dataItems.map(item=>{
                             return (
-                                <MenuItem value={item.name}>{item.name}</MenuItem>
+                                <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
                             )
                         })
                     }
