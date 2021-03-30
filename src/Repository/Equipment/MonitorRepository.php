@@ -4,6 +4,7 @@ namespace App\Repository\Equipment;
 
 use App\Entity\Equipment\Monitor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,28 @@ class MonitorRepository extends ServiceEntityRepository
         parent::__construct($registry, Monitor::class);
     }
 
+    public function monitor_list(){
+        $str="SELECT monitor.id, monitor.serial, monitor_models.name, minion.id minion_id, minion.node_name,
+                vendor.name as vendor_name, monitor.year, monitor.week
+                    FROM equipment.monitor
+                    left join equipment.monitor_models ON monitor_models.id = monitor.model_id
+                    left join helpers.vendor ON vendor.id = monitor_models.vendor_id
+                    left join connected_monitors on connected_monitors.monitor_id = monitor.id
+                    left join minion ON minion.id = connected_monitors.minion_id
+                    where connected_monitors.connected";
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult("id","id");
+        $rsm->addScalarResult("serial","serial");
+        $rsm->addScalarResult("name","name");
+        $rsm->addScalarResult("minion_id","minion_id");
+        $rsm->addScalarResult("node_name","node_name");
+        $rsm->addScalarResult("vendor_name","vendor_name");
+        $rsm->addScalarResult("year","year");
+        $rsm->addScalarResult("week","week");
+
+        $data = $this->getEntityManager()->createNativeQuery($str,$rsm)->getResult();
+        return $data;
+    }
     // /**
     //  * @return Monitor[] Returns an array of Monitor objects
     //  */
