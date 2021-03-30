@@ -13,7 +13,7 @@ import {NavLink , useLocation} from 'react-router-dom';
 
 import DashboardRoundedIcon  from '@material-ui/icons/DashboardRounded';
 import AppsIcon from '@material-ui/icons/Apps';
-import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
+import DesktopWindowsIcon from '@material-ui/icons/Computer';
 import {useSelector} from "react-redux";
 import {RootState} from "@store/store";
 
