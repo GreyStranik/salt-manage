@@ -23,6 +23,7 @@ import Minion from "@pages/Minion";
 import Programm from "@pages/Programm";
 import store from "@store/store";
 import {Monitors} from "@pages/Monitors/Monitors";
+import Printers from "@pages/Printers";
 
 function App() {
 
@@ -52,7 +53,8 @@ function App() {
                     <Route path={"/minions/:id"} component={Minion} />
                     <Route exact={true} path={"/programms"} component={Programms} />
                     <Route path={"/programms/:id"} component={Programm}/>
-                    <Route exact={true} component={Monitors} />
+                    <Route exact={true} path={"/monitors"} component={Monitors} />
+                    <Route exact={true} path={"/printers"} component={Printers} />
                     <Route path={'*'} component={NotFound} />
                     {/*<Redirect to={"/dashboard"} from={"/"} />*/}
 

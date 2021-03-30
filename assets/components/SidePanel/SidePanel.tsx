@@ -15,6 +15,7 @@ import DashboardRoundedIcon  from '@material-ui/icons/DashboardRounded';
 import AppsIcon from '@material-ui/icons/Apps';
 import DesktopWindowsIcon from '@material-ui/icons/Computer';
 import Monitor from '@material-ui/icons/DesktopWindows';
+import PrintIcon from '@material-ui/icons/Print';
 import {useSelector} from "react-redux";
 import {RootState} from "@store/store";
 
@@ -117,12 +118,20 @@ function SidePanel() {
                             <ListItemText primary={"Программы"} secondary={"Состав программного обеспечения"} />
                         </ListItem>
                     </NavLink>
-                    <NavLink to={"/monitor"} className={classes.menu_item}>
-                        <ListItem button selected={location.pathname=="/monitor"}>
+                    <NavLink to={"/monitors"} className={classes.menu_item}>
+                        <ListItem button selected={location.pathname=="/monitors"}>
                             <ListItemIcon>
                                 <Monitor />
                             </ListItemIcon>
                             <ListItemText primary={"Мониторы"} secondary={"Список мониторов"} />
+                        </ListItem>
+                    </NavLink>
+                    <NavLink to={"/printers"} className={classes.menu_item}>
+                        <ListItem button selected={location.pathname=="/printers"}>
+                            <ListItemIcon>
+                                <PrintIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Принтера"} secondary={"Список принтеров и МФУ"} />
                         </ListItem>
                     </NavLink>
 
