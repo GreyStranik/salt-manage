@@ -14,6 +14,7 @@ import {NavLink , useLocation} from 'react-router-dom';
 import DashboardRoundedIcon  from '@material-ui/icons/DashboardRounded';
 import AppsIcon from '@material-ui/icons/Apps';
 import DesktopWindowsIcon from '@material-ui/icons/Computer';
+import Monitor from '@material-ui/icons/DesktopWindows';
 import {useSelector} from "react-redux";
 import {RootState} from "@store/store";
 
@@ -114,6 +115,14 @@ function SidePanel() {
                                 <AppsIcon/>
                             </ListItemIcon>
                             <ListItemText primary={"Программы"} secondary={"Состав программного обеспечения"} />
+                        </ListItem>
+                    </NavLink>
+                    <NavLink to={"/monitor"} className={classes.menu_item}>
+                        <ListItem button selected={location.pathname=="/monitor"}>
+                            <ListItemIcon>
+                                <Monitor />
+                            </ListItemIcon>
+                            <ListItemText primary={"Мониторы"} secondary={"Список мониторов"} />
                         </ListItem>
                     </NavLink>
 

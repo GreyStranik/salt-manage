@@ -22,6 +22,7 @@ import NotFound from "@pages/NotFound";
 import Minion from "@pages/Minion";
 import Programm from "@pages/Programm";
 import store from "@store/store";
+import {Monitors} from "@pages/Monitors/Monitors";
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
                     <Route path={"/minions/:id"} component={Minion} />
                     <Route exact={true} path={"/programms"} component={Programms} />
                     <Route path={"/programms/:id"} component={Programm}/>
+                    <Route exact={true} component={Monitors} />
                     <Route path={'*'} component={NotFound} />
                     {/*<Redirect to={"/dashboard"} from={"/"} />*/}
 
