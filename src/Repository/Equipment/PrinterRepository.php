@@ -21,7 +21,7 @@ class PrinterRepository extends ServiceEntityRepository
     }
 
     public function printer_list(){
-        $str = "SELECT printer.id, printer.serial, printer_model.name, minion.id minion_id, minion.node_name,
+        $str = "SELECT connected_printers.id, printer.id printer_id, printer.serial, printer_model.name, minion.id minion_id, minion.node_name,
                 vendor.name as vendor_name
                     FROM equipment.printer
                     left join equipment.printer_model ON printer_model.id = printer.model_id

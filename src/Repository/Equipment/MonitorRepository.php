@@ -21,7 +21,7 @@ class MonitorRepository extends ServiceEntityRepository
     }
 
     public function monitor_list(){
-        $str="SELECT monitor.id, monitor.serial, monitor_models.name, minion.id minion_id, minion.node_name,
+        $str="SELECT connected_monitors.id, monitor.id monitor_id, monitor.serial, monitor_models.name, minion.id minion_id, minion.node_name,
                 vendor.name as vendor_name, monitor.year, monitor.week
                     FROM equipment.monitor
                     left join equipment.monitor_models ON monitor_models.id = monitor.model_id
