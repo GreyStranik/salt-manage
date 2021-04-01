@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import {ColDef, DataGrid} from '@material-ui/data-grid';
+import Button from "@material-ui/core/Button";
+import XLSL, {WorkBook, writeFile, XLSX$Utils} from 'xlsx'
 
 import {RU_LOCALE_TEXT} from "@components/addons/grid_ru";
 import {renderCellExpand} from "@components/addons/GridCellExpand"
@@ -40,6 +42,25 @@ function Minions() {
             setMinions(result)
         })
     },[])
+
+    const exportData = () => {
+        const data = filterMinions(minions,filters).map(item=>(
+            {
+                'Компьютер' : item.node_name,
+                'Серийный номер' : item.serialnumber,
+                'Подразделение' : item.department,
+                'Пользователь' : item.fio_user,
+                'Кабинет' : item.room,
+                'Производитель' : item.manufacturer,
+                'ОС' : item.os
+            }
+        ))
+        const book = XLSL.utils.book_new()
+        const sheet = XLSL.utils.json_to_sheet(data)
+        XLSL.utils.book_append_sheet(book,sheet,"Компьютеры")
+
+        writeFile(book,"computers.xlsx")
+    }
 
     const columns: ColDef[] = [
         { field: 'node_name', headerName: 'Компьютер', flex: 1,
@@ -83,7 +104,19 @@ function Minions() {
 
                 <Grid item xs={12} className={classes.minion_title}>
                     <h2>Зарегистрированные компьютеры</h2>
-                    <FilterAction/>
+
+                    <span>
+                        <FilterAction/>
+                        <Button
+                            variant={"outlined"}
+                            color={"secondary"}
+                            style={{marginLeft:'1rem'}}
+                            onClick={exportData}
+                        >
+                            Экспорт
+                        </Button>
+                    </span>
+
 
                 </Grid>
 
