@@ -25,12 +25,14 @@ import {useStyles} from "@pages/Minions/styles";
 import {filterMinions} from "@pages/Minions/filters";
 import {FilterBlock} from "@pages/Minions/filterBlock";
 import {FilterAction} from "@pages/Minions/filterAction";
+import {ColumnConfig} from "@pages/Minions/ColumnConfig";
 
 
 function Minions() {
     const classes = useStyles()
 
     const filters = useSelector((state:RootState)=>state.filter)
+    const columns_visile = useSelector((state:RootState)=>state.minions_columns)
 
     const [minions,setMinions] = useState<GridMinionItem[]>([])
     const [loading, setLoading] = useState(true)
@@ -63,7 +65,7 @@ function Minions() {
     }
 
     const columns: ColDef[] = [
-        { field: 'node_name', headerName: 'Компьютер', flex: 1,
+        { field: 'node_name', headerName: 'Компьютер', flex: 1, disableColumnMenu:true, hide: !columns_visile.node_name,
             renderCell: params => {
                 return  (
                     <NavLink to={`/minions/${params.row.id}`} className={classes.table_cell_link} >
@@ -72,19 +74,20 @@ function Minions() {
                 )
             }
         },
-        { field: 'serialnumber', headerName: 'Серийный номер', width: 180, renderCell: renderCellExpand },
-        { field: 'ip', headerName: 'IP адрес', width: 210, renderCell: renderCellExpand},
-        { field: 'mac', headerName: 'MAC адрес', width: 210, renderCell: renderCellExpand},
-        { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1, renderCell: renderCellExpand},
-        { field: 'user_phone', headerName: 'Телефон', width: 200, renderCell: renderCellExpand},
-        { field: 'room', headerName: 'Кабинет', width: 180, renderCell: renderCellExpand},
-        { field: "department", headerName: 'Подразделение', flex: 1, renderCell: renderCellExpand, hide: true},
+        { field: 'serialnumber', headerName: 'Серийный номер', width: 180, disableColumnMenu:true, hide: !columns_visile.serialnumber, renderCell: renderCellExpand },
+        { field: 'ip', headerName: 'IP адрес', width: 210, disableColumnMenu:true, hide: !columns_visile.ip, renderCell: renderCellExpand},
+        { field: 'mac', headerName: 'MAC адрес', width: 210, disableColumnMenu:true, hide: !columns_visile.mac, renderCell: renderCellExpand},
+        { field: 'fio_user', headerName: 'ФИО ответственного', flex: 1, disableColumnMenu:true, hide: !columns_visile.fio_user, renderCell: renderCellExpand},
+        { field: 'user_phone', headerName: 'Телефон', width: 200, disableColumnMenu:true, hide: !columns_visile.user_phone, renderCell: renderCellExpand},
+        { field: 'room', headerName: 'Кабинет', width: 180, disableColumnMenu:true, hide: !columns_visile.room, renderCell: renderCellExpand},
+        { field: "department", headerName: 'Подразделение', flex: 1, disableColumnMenu:true, renderCell: renderCellExpand, hide: !columns_visile.department},
         {
             field: 'created_at',
             headerName: 'Создано',
             width: 180,
             type:"dateTime",
-            hide:true,
+            hide:!columns_visile.created_at,
+            disableColumnMenu:true,
             valueFormatter: params => new Date(params.value as string).toLocaleString(),
         },
         {
@@ -92,6 +95,8 @@ function Minions() {
             headerName: 'Обновлено',
             width: 180,
             type:"dateTime",
+            disableColumnMenu:true,
+            hide:!columns_visile.updated_at,
             valueFormatter: params => new Date(params.value as string).toLocaleString(),
 
         }
@@ -115,6 +120,7 @@ function Minions() {
                         >
                             Экспорт
                         </Button>
+                        <ColumnConfig  />
                     </span>
 
 
@@ -132,7 +138,11 @@ function Minions() {
                                   // onStateChange={onStateChange}
                                   density={"compact"}
                                   // hideFooterPagination={true}
+                                  onStateChange={params => {console.log(params)}}
                                   disableColumnFilter
+                                  hideFooterSelectedRowCount={true}
+                                  hideFooterRowCount={false}
+                                  showToolbar={true}
                                   components={{
                                       NoRowsOverlay: NoDataOverlay,
                                       Pagination : CustomGridPagination

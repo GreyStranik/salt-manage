@@ -68,6 +68,54 @@ export const useStyles = makeStyles((theme: Theme) =>
                 }
             }
         },
+        popper_column_config: {
+            zIndex: 1000,
+            width: '360px',
+            padding: theme.spacing(2),
+            '&[x-placement*="bottom"] $arrow': {
+                top: 0,
+                left: 0,
+                marginTop: "-0.71em",
+                marginLeft: 4,
+                marginRight: 4,
+                "&::before": {
+                    transformOrigin: "0 100%"
+                }
+            },
+            '&[x-placement*="top"] $arrow': {
+                bottom: 0,
+                left: 0,
+                marginBottom: "-0.71em",
+                marginLeft: 4,
+                marginRight: 4,
+                "&::before": {
+                    transformOrigin: "100% 0"
+                }
+            },
+            '&[x-placement*="right"] $arrow': {
+                left: 0,
+                marginLeft: "-0.71em",
+                height: "1em",
+                width: "0.71em",
+                marginTop: 4,
+                marginBottom: 4,
+                "&::before": {
+                    transformOrigin: "100% 100%"
+                }
+            },
+            '&[x-placement*="left"] $arrow': {
+                right: 0,
+                marginRight: "-0.71em",
+                height: "1em",
+                width: "0.71em",
+                marginTop: 4,
+                marginBottom: 4,
+                "&::before": {
+                    transformOrigin: "0 0"
+                }
+            }
+        },
+
         arrow: {
             overflow: "hidden",
             position: "absolute",
@@ -86,6 +134,9 @@ export const useStyles = makeStyles((theme: Theme) =>
                 transform: "rotate(45deg)"
             }
         },
+        setup_header : {
+            color : theme.palette.text.secondary
+        }
 
     }),
 );

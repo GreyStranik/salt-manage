@@ -47,6 +47,9 @@ export type FilterField = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | t
                           typeof ROOM | typeof DEPARTMENT | typeof TYPE | typeof OS | typeof MANUFACTURER | typeof CPU_MODEL |
                           typeof CREATE_AT | typeof UPDATED_AT
 
+export type ColumnFields = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE |
+    typeof ROOM | typeof DEPARTMENT | typeof CREATE_AT | typeof UPDATED_AT
+
 export interface CompareItem {
     field : FilterField
     value : string
