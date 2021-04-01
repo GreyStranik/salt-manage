@@ -7,10 +7,14 @@ import {RU_LOCALE_TEXT} from "@components/addons/grid_ru";
 import {renderCellExpand} from "@components/addons/GridCellExpand"
 import CustomGridPagination from "@components/addons/CustomGridPagination";
 import NoDataOverlay from "@components/addons/NoDataOverlay";
+import {GridPrinterItem} from "@pages/Printers/interfaces";
+import {useStyles} from "@pages/Printers/styles";
+import XLSL, {writeFile} from "xlsx";
+import Button from "@material-ui/core/Button";
 
 function Printers(){
-
-    const [printers,setPrinters] = useState([])
+    const classes = useStyles()
+    const [printers,setPrinters] = useState<GridPrinterItem[]>([])
 
     useEffect(()=>{
         // setLoading(true);
@@ -27,13 +31,38 @@ function Printers(){
         {field:'node_name',headerName:"Компьютер",renderCell: renderCellExpand, flex:1}
     ]
 
+    const exportData = () => {
+        const data = printers.map(item=>(
+            {
+                'Компьютер' : item.node_name,
+                'Серийный номер' : item.serial,
+                'Принтер' : item.name,
+                'Производитель' : item.vendor_name,
+            }
+        ))
+        const book = XLSL.utils.book_new()
+        const sheet = XLSL.utils.json_to_sheet(data)
+        XLSL.utils.book_append_sheet(book,sheet,"Принтера")
+
+        writeFile(book,"printers.xlsx")
+    }
+
     return (
         <>
             <CssBaseline />
             <Grid container  direction={"row"}>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} className={classes.printer_title}>
                     <h2>Принтера</h2>
+                    <Button
+                        variant={"outlined"}
+                        color={"secondary"}
+                        className={classes.export_btn}
+                        onClick={exportData}
+                    >
+                        Экспорт
+                    </Button>
+
                 </Grid>
 
                 <Grid item xs={12}>
