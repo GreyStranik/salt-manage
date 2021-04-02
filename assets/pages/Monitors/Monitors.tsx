@@ -10,13 +10,32 @@ import {renderCellExpand} from "@components/addons/GridCellExpand"
 import CustomGridPagination from "@components/addons/CustomGridPagination";
 import NoDataOverlay from "@components/addons/NoDataOverlay";
 import {useStyles} from "@pages/Monitors/styles";
-import {filterMinions} from "@pages/Minions/filters";
+
 import {GridMonitorItem} from "@pages/Monitors/interfaces";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@store/store";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import ClearIcon from "@material-ui/icons/Clear";
+import {clearFindMonitor, findMonitor} from "@store/find_equipment/actions";
+
+const findMonitors = (monitors:GridMonitorItem[],find:string):GridMonitorItem[] => {
+    return monitors.filter(item =>
+            item.name.toLowerCase().includes(find.toLowerCase())
+        ||  item.serial.toLowerCase().includes(find.toLowerCase())
+        ||  item.node_name.toLowerCase().includes(find.toLowerCase())
+    )
+}
 
 function Monitors(){
     const classes = useStyles()
 
     const [monitors,setMonitors] = useState<GridMonitorItem[]>([])
+    const find = useSelector((state:RootState ) => state.equipment_find.monitor)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         // setLoading(true);
@@ -49,10 +68,14 @@ function Monitors(){
         {field:'node_name',headerName:"Компьютер",renderCell: renderCellExpand, flex:1}
     ]
 
+    const handleFindChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(findMonitor(event.target.value.toLowerCase()))
+    }
+
     return (
         <>
             <CssBaseline />
-            <Grid container  direction={"row"}>
+            <Grid container  direction={"row"} spacing={2} >
 
                 <Grid item xs={12} className={classes.monitor_title}>
                     <h2>Мониторы</h2>
@@ -67,9 +90,27 @@ function Monitors(){
                 </Grid>
 
                 <Grid item xs={12}>
-                    <div style={{ height: '78vh', width: '100%' }}>
+                    <FormControl variant={"filled"} fullWidth /*className={classes.find} */ >
+                        <InputLabel htmlFor={"monitor-find"}>Поиск мониторов</InputLabel>
+                        <OutlinedInput
+                            id={"monitor-find"}
+                            value={find}
+                            onChange={handleFindChange}
+                            endAdornment={
+                                <InputAdornment position={"end"}>
+                                    <IconButton onClick={() =>{dispatch(clearFindMonitor())} }>
+                                        <ClearIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <div style={{ height: '70vh', width: '100%' }}>
                         <DataGrid
-                            rows={monitors}
+                            rows={findMonitors(monitors,find)}
                             columns={columns}
                             // pageSize={12}
                             autoPageSize={true}
@@ -78,8 +119,9 @@ function Monitors(){
                             loading={monitors===undefined}
                             // onStateChange={onStateChange}
                             density={"compact"}
-                            // hideFooterPagination={true}
-                            // disableColumnFilter
+                            disableColumnFilter
+                            hideFooterSelectedRowCount={true}
+                            hideFooterRowCount={false}
                             components={{
                                 // NoRowsOverlay: NoDataOverlay,
                                 Pagination : CustomGridPagination
