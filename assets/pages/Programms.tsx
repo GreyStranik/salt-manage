@@ -2,6 +2,13 @@ import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import ClearIcon from '@material-ui/icons/Clear';
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+// import Input from "@material-ui/core/Input";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 
 import {makeStyles } from "@material-ui/core/styles";
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
@@ -9,6 +16,9 @@ import {ProgrammItemName} from "@interfaces/ProgrammItemName";
 import SoftInfoCard from "@cards/SoftInfoCard";
 import {VirtuosoGrid} from "react-virtuoso";
 import styled from "styled-components";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@store/store";
+import {programmClearSeach, programmFind} from "@store/programms_find/actions";
 
 function Programms() {
 
@@ -58,10 +68,13 @@ function Programms() {
 
     const [data, setData] = useState<ProgrammItemName[]>([])
     const [loading, setLoading] = useState(true)
-    const [find, setFind] = useState('')
+    // const [find, setFind] = useState('')
+    const find = useSelector((state:RootState) => state.programm_find.find)
+    const dispatch = useDispatch()
 
     const handleFindChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFind(event.target.value.toLowerCase());
+        //setFind(event.target.value.toLowerCase());
+        dispatch(programmFind(event.target.value.toLowerCase()))
     };
 
     useEffect(()=>{
@@ -80,14 +93,22 @@ function Programms() {
                 <Grid item xs={12}>
                     <h1>Состав программного обеспечения</h1>
                 </Grid>
-                <Grid item xs={12} >
-                    <TextField id="soft-find"
-                               label="Поиск программ"
-                               value={find}
-                               fullWidth
-                               onChange={handleFindChange}
-                               className={classes.find}
-                    />
+                <Grid item xs={12}>
+                    <FormControl variant={"filled"} fullWidth className={classes.find}>
+                        <InputLabel htmlFor={"soft-find"}>Поиск программ</InputLabel>
+                        <OutlinedInput
+                            id={"soft-find"}
+                            value={find}
+                            onChange={handleFindChange}
+                            endAdornment={
+                                <InputAdornment position={"end"}>
+                                    <IconButton onClick={() =>{dispatch(programmClearSeach())} }>
+                                        <ClearIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
                 </Grid>
             {/*</Container>*/}
                 <Grid item xs={12}>
