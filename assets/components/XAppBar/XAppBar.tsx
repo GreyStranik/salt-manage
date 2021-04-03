@@ -15,6 +15,7 @@ import LightingIcon from "@components/PanelIcons/LightingIcon";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@store/store";
 import {collapsePanel, expandPanel} from "@store/pannel/actions";
+import {MegaSearch} from "@components/MegaSearch/MegaSearch";
 
 function XAppBar() {
 
@@ -98,19 +99,21 @@ function XAppBar() {
                         Панель управления
                     </Typography>
 
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Поиск…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
+                    {/*<div className={classes.search}> */}
+                    {/*    <div className={classes.searchIcon}>*/}
+                    {/*        <SearchIcon />*/}
+                    {/*    </div>*/}
+                    {/*    <InputBase*/}
+                    {/*        placeholder="Поиск…"*/}
+                    {/*        classes={{*/}
+                    {/*            root: classes.inputRoot,*/}
+                    {/*            input: classes.inputInput,*/}
+                    {/*        }}*/}
+                    {/*        inputProps={{ 'aria-label': 'search' }}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+
+                    <MegaSearch/>
 
                     <Computer/>
                     <LightingIcon/>
