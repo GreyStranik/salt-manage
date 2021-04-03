@@ -39,6 +39,20 @@ class SoftRepository extends ServiceEntityRepository
 
         return $data;
     }
+
+    public function simple_find(string $search){
+        $str = "select id, name from helpers.soft
+                where upper(name) like :name
+                order by name
+                limit 5";
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('name','value');
+        $data = $this->getEntityManager()->createNativeQuery($str,$rsm)
+            ->setParameter("name",mb_strtoupper("%$search%"))->getArrayResult();
+        return $data;
+    }
+
     // /**
     //  * @return Soft[] Returns an array of Soft objects
     //  */

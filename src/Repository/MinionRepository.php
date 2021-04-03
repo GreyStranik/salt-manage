@@ -65,6 +65,19 @@ class MinionRepository extends ServiceEntityRepository
         ];
     }
 
+    function simple_find(string $search){
+        $str = "SELECT id, node_name
+                FROM public.minion
+                where upper(node_name) like :node_name
+                order by node_name
+                limit 5";
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('node_name','value');
+        $data = $this->getEntityManager()->createNativeQuery($str,$rsm)->setParameter("node_name",mb_strtoupper("%$search%"))->getArrayResult();
+        return $data;
+    }
+
     // /**
     //  * @return Minion[] Returns an array of Minion objects
     //  */
