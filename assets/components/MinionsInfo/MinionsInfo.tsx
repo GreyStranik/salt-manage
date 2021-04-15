@@ -51,7 +51,7 @@ export default function MinionsInfo(){
     const handle_today = () => {
         const date = new Date()
         const d_val = date.toISOString().slice(0,10)
-        dispatch(filterOnlyBy({ field: UPDATED_AT, compare: CompareType.LESS_AND_EQUAL, value: d_val  }))
+        dispatch(filterOnlyBy({ field: UPDATED_AT, compare: CompareType.EQUAL, value: d_val  }))
         history.push("/minions")
     }
 
