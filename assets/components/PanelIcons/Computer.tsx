@@ -13,6 +13,8 @@ import MenuList from '@material-ui/core/MenuList';
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 const useStyles = makeStyles((theme:Theme)=>createStyles({
     poper : {
@@ -104,15 +106,13 @@ export function Computer(){
 
     const classes = useStyles()
 
-    const [newMinions,setNewMinions] = useState<MinionListItem[]>([])
+    const initialData:MinionListItem[] = []
+    const { data:newMinions} = useSWR<MinionListItem[]>('/api/minion/new_minions',fetcher,{refreshInterval:1000*60*15})
+
     const [open, setOpen] = useState(false)
 
     const anchorRef = React.useRef<HTMLButtonElement>(null);
     const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
-
-    useEffect(()=>{
-        fetch('/api/minion/new_minions').then(response=>response.json()).then(result=>setNewMinions(result))
-    },[])
 
     const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) =>{
         setOpen(true)
@@ -125,12 +125,12 @@ export function Computer(){
     return (
         <>
             <IconButton color={"inherit"} onClick={handleOpen} ref={anchorRef}>
-                <Badge badgeContent={newMinions.length} color={"secondary"}>
+                <Badge badgeContent={newMinions?.length} color={"secondary"}>
                     <ComputerIcon />
                 </Badge>
             </IconButton>
 
-            <Popper open={open&&newMinions.length>0} anchorEl={anchorRef.current} role={undefined} placement={"bottom"} transition className={classes.popper}
+            <Popper open={open && (newMinions!=undefined ? newMinions.length>0 : false  ) } anchorEl={anchorRef.current} role={undefined} placement={"bottom"} transition className={classes.popper}
                     modifiers={{
                         preventOverflow: {
                             enabled: true,
@@ -153,7 +153,7 @@ export function Computer(){
                                     <span className={classes.arrow} ref={setArrowRef} />
                                     <MenuList autoFocusItem={open} id="menu-list-grow" /*onKeyDown={handleListKeyDown} */>
                                         {
-                                            newMinions.map((item,index)=><MenuItem key={index} component={Link} to={`/minions/${item.id}`}>{item.node_name}</MenuItem>)
+                                            newMinions?.map((item,index)=><MenuItem key={index} component={Link} to={`/minions/${item.id}`}>{item.node_name}</MenuItem>)
                                         }
                                     </MenuList>
                                 </Paper>
