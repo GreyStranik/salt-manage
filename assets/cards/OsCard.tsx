@@ -7,14 +7,12 @@ import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import {OS} from "@add_types/filters/minion_filters";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 export default function OsCard(){
 
-    const [data, setData] = useState<ChartDataItem[]>([])
-
-    useEffect(()=>{
-        fetch("/api/os/os_static").then(response=>response.json()).then(result=>setData(result))
-    },[])
+    const {data} = useSWR<ChartDataItem[]>('/api/os/os_static',fetcher)
 
     return (
         <>
@@ -23,7 +21,7 @@ export default function OsCard(){
                     <CardHeader title={"ОС"} subheader={"Операционные системы установленные на миньонах"}/>
                     <CardContent>
 
-                        <DataChart data={data} height={170} field={OS} />
+                        <DataChart data={data||[]} height={170} field={OS} />
 
                     </CardContent>
                 </Card>

@@ -7,14 +7,12 @@ import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import {MANUFACTURER} from "@add_types/filters/minion_filters";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 export default function ManufacturerCard(){
 
-    const [data, setData] = useState<ChartDataItem[]>([])
-
-    useEffect(()=>{
-        fetch("/api/manufacturer/manufacturer_static").then(response=>response.json()).then(result=>setData(result))
-    },[])
+    const {data} = useSWR<ChartDataItem[]>('/api/manufacturer/manufacturer_static',fetcher)
 
     return (
         <>
@@ -22,7 +20,7 @@ export default function ManufacturerCard(){
                 <Card>
                     <CardHeader title={"Производители"} subheader={"Производители компьютеров"}/>
                     <CardContent>
-                        <DataChart data={data} height={170} field={MANUFACTURER} />
+                        <DataChart data={data||[]} height={170} field={MANUFACTURER} />
                     </CardContent>
                 </Card>
             </Grid>

@@ -7,14 +7,12 @@ import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import {DEPARTMENT} from "@add_types/filters/minion_filters";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 export default function DepartmentsCard(){
 
-    const [data, setData] = useState<ChartDataItem[]>([])
-
-    useEffect(()=>{
-        fetch("/api/department/departments_static").then(response=>response.json()).then(result=>setData(result))
-    },[])
+    const { data } = useSWR<ChartDataItem[]>('/api/department/departments_static',fetcher)
 
     return (
         <>
@@ -22,9 +20,7 @@ export default function DepartmentsCard(){
                 <Card>
                     <CardHeader title={"Подразделения"} subheader={"Подразделения организации"}/>
                     <CardContent>
-
-                        <DataChart data={data} height={170} legendWidth={240} field={DEPARTMENT} />
-
+                        <DataChart data={data||[]} height={170} legendWidth={240} field={DEPARTMENT} />
                     </CardContent>
                 </Card>
             </Grid>

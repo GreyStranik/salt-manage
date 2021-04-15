@@ -7,14 +7,12 @@ import Grid from "@material-ui/core/Grid";
 import DataChart from "@components/DataChart";
 import {ChartProps, ChartDataItem} from "@components/DataChart/DataChart";
 import {CPU_MODEL} from "@add_types/filters/minion_filters";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 export default function CpuCard(){
 
-    const [data, setData] = useState<ChartDataItem[]>([])
-
-    useEffect(()=>{
-        fetch('/api/cpu_model/cpu_static').then(response=>response.json()).then(result=>setData(result))
-    },[])
+    const {data} = useSWR<ChartDataItem[]>('/api/cpu_model/cpu_static',fetcher)
 
     return (
         <>
@@ -22,7 +20,7 @@ export default function CpuCard(){
                 <Card>
                     <CardHeader title={"CPU"} subheader={"Зоопарк процессоров"}/>
                     <CardContent>
-                        <DataChart data={data} height={170} legendWidth={240} field={CPU_MODEL} />
+                        <DataChart data={data!=undefined ? data : []} height={170} legendWidth={240} field={CPU_MODEL} />
                     </CardContent>
                 </Card>
             </Grid>
