@@ -11,6 +11,8 @@ import {useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import {clearFilters, filterOnlyBy} from "@store/filters/actions";
 import {CompareType, UPDATED_AT} from "@add_types/filters/minion_filters";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 interface MinionCount {
     count_all : number,
@@ -24,16 +26,13 @@ export default function MinionsInfo(){
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [minionsCount,setMinionsCount] = useState<MinionCount>({
+   const initialData = {
         count_all : 0,
         count_today : 0,
         count_low_2week : 0,
         count_low_month : 0
-    });
-
-    useEffect(()=>{
-        fetch('/api/minion/info').then(responce=>responce.json()).then(result=>setMinionsCount(result));
-    },[])
+    }
+    const {data} = useSWR<MinionCount>('/api/minion/info',fetcher,{initialData,revalidateOnMount:true})
 
     const handle_low_month = () => {
         const date = new Date()
@@ -70,7 +69,7 @@ export default function MinionsInfo(){
                         <CardActionArea onClick={handle_all}>
                             <CardContent>
                                 <div className={classes.card_line}>
-                                    <Typography variant={"h3"} className={classes.count}>{minionsCount.count_all}</Typography>
+                                    <Typography variant={"h3"} className={classes.count}>{data?.count_all}</Typography>
                                     <Typography variant={"body1"} className={classes.description} >
                                         Общее количество миньонов
                                     </Typography>
@@ -86,7 +85,7 @@ export default function MinionsInfo(){
                         <CardActionArea onClick={handle_today}>
                             <CardContent>
                                 <div className={classes.card_line}>
-                                    <Typography variant={"h3"} className={classes.count_today}>{minionsCount.count_today}</Typography>
+                                    <Typography variant={"h3"} className={classes.count_today}>{data?.count_today}</Typography>
                                     <Typography variant={"body1"} className={classes.description} >
                                         Обновлено сегодня
                                     </Typography>
@@ -102,7 +101,7 @@ export default function MinionsInfo(){
                         <CardActionArea onClick={handle_low_2week}>
                             <CardContent>
                                 <div className={classes.card_line}>
-                                    <Typography variant={"h3"} className={classes.count_low_2week}>{minionsCount.count_low_2week}</Typography>
+                                    <Typography variant={"h3"} className={classes.count_low_2week}>{data?.count_low_2week}</Typography>
                                     <Typography variant={"body1"} className={classes.description}>
                                         Недоступны более 2х недель
                                     </Typography>
@@ -118,7 +117,7 @@ export default function MinionsInfo(){
                         <CardActionArea onClick={handle_low_month}>
                             <CardContent>
                                 <div className={classes.card_line}>
-                                    <Typography variant={"h3"} className={classes.count_low_month}>{minionsCount.count_low_month}</Typography>
+                                    <Typography variant={"h3"} className={classes.count_low_month}>{data?.count_low_month}</Typography>
                                     <Typography variant={"body1"} className={classes.description} >
                                         Недоступны более месяца
                                     </Typography>
