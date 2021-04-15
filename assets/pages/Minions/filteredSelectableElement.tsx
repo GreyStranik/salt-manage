@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -8,6 +8,8 @@ import {CompareItem, CompareType, FilterField} from "@add_types/filters/minion_f
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@store/store";
 import {filterBy, removeFilter} from "@store/filters/actions";
+import useSWR from "swr";
+import {fetcher} from "@pages/fetcher";
 
 interface IDataItem {
     id : string
@@ -34,14 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function FilteredSelectableElement(props:FilteredSelectableElementProps){
 
     const classes = useStyles()
-
-    const [dataItems, setDataItems] = useState<IDataItem[]>([])
+    const {data:dataItems} = useSWR<IDataItem[]>(`/api/${props.field as string}/`,fetcher,{
+        dedupingInterval: 10000
+    })
     const dispatch = useDispatch()
     const filters = useSelector((state:RootState)=>state.filter)
-
-    useEffect(()=>{
-        fetch(`/api/${props.field as string}/`).then(response=>response.json()).then(result=>setDataItems(result))
-    },[])
 
     const handleChange = (event:React.ChangeEvent<{ value: unknown }>) => {
         console.log(event.target.value)
@@ -52,7 +51,6 @@ export default function FilteredSelectableElement(props:FilteredSelectableElemen
             value
         }
         value!=="" ? dispatch(filterBy(filter)) : dispatch(removeFilter(props.field as FilterField))
-
     }
 
     return (
@@ -68,7 +66,7 @@ export default function FilteredSelectableElement(props:FilteredSelectableElemen
                 >
                     <MenuItem value={""}>Все </MenuItem>
                     {
-                        dataItems.map(item=>{
+                        dataItems?.map(item=>{
                             return (
                                 <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
                             )
