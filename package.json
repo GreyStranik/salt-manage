@@ -33,7 +33,6 @@
     "clsx": "^1.1.1",
     "core-js": "^3.8.3",
     "fontsource-roboto": "^4.0.0",
-    "moment": "^2.29.1",
     "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
