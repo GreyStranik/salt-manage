@@ -87,6 +87,7 @@ class MinionController extends AbstractController
                 'department' => $minion->getDepartment()->getName(),
                 'type' => $minion->getType()->getName(),
                 'os' => $minion->getOs()->getName(),
+                'osrelease' => $minion->getOsrelease(),
                 'created_at' => $minion->getCreatedAt(),
                 'updated_at' => $minion->getUpdatedAt()
             ];

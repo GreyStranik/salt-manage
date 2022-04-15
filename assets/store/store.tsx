@@ -7,6 +7,7 @@ import {minionsColumnsReducer} from "@store/minion_list_columns/reducer";
 import {programmFindReducer} from "@store/programms_find/reducer";
 import {findEquipmentReducer} from "@store/find_equipment/reducer";
 
+
 const rootReducer = combineReducers({
     theme : themeReducer,
     panel: panelReducer,

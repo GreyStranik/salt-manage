@@ -8,9 +8,10 @@ import TextField from "@material-ui/core/TextField/TextField";
 interface FilteredElementPropt {
     title: string
     field: FilterField
+    compare?: CompareType
 }
 
-export function FilteredElement(props:FilteredElementPropt){
+export function FilteredElement({field, title, compare=CompareType.CONTAINS}:FilteredElementPropt){
 
     const dispatch = useDispatch()
     const filters = useSelector((state:RootState)=>state.filter)
@@ -19,7 +20,7 @@ export function FilteredElement(props:FilteredElementPropt){
         const value = event.target.value
         const filter:CompareItem={
             field : event.target.name as FilterField,
-            compare : CompareType.CONTAINS,
+            compare,
             value
         }
         value!=="" ? dispatch(filterBy(filter)) : dispatch(removeFilter(event.target.name as FilterField))
@@ -29,10 +30,10 @@ export function FilteredElement(props:FilteredElementPropt){
     return (
         <>
             <TextField
-                label={props.title}
+                label={title}
                 variant={"outlined"}
-                name={props.field as string}
-                value={filters.find(item=>item.field===props.field)?.value}
+                name={field as string}
+                value={filters.find(item=>item.field===field)?.value}
                 onChange={filterParamChanged}
                 size={"small"}
                 fullWidth

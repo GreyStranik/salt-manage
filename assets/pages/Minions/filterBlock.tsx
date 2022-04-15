@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import {
+    CompareType,
     CPU_MODEL,
     CREATE_AT,
     DEPARTMENT,
@@ -11,6 +12,7 @@ import {
     MANUFACTURER,
     NODE_NAME,
     OS,
+    OS_RELEASE,
     ROOM,
     SERIALNUMBER,
     TYPE,
@@ -56,10 +58,13 @@ export function FilterBlock() {
                 <Grid item xs={6}>
                     <FilteredSelectableElement title={"Тип"} field={TYPE}/>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <FilteredSelectableElement title={"ОС"} field={OS}/>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
+                    <FilteredElement title={"Версия ОС"} field={OS_RELEASE} compare={CompareType.EQUAL}/>
+                </Grid>
+                <Grid item xs={4}>
                     <FilteredSelectableElement title={"Производитель"} field={MANUFACTURER} />
                 </Grid>
                 <Grid item xs={12}>

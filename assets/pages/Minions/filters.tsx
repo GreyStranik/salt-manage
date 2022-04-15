@@ -1,9 +1,10 @@
 import {CompareItem, CompareType, CREATE_AT, GridMinionItem, UPDATED_AT} from "@add_types/filters/minion_filters";
 
 function filterMinion(minion:GridMinionItem,filters:CompareItem[]):Boolean {
-
+    console.log('curr ==', minion, filters)
     const expressions = filters.map(filter=>{
 
+        console.log(`Find ${filter.field} in `, minion)
         const value = minion[filter.field]
         if ( (filter.field===CREATE_AT) || (filter.field===UPDATED_AT) ) {
 
@@ -29,10 +30,13 @@ function filterMinion(minion:GridMinionItem,filters:CompareItem[]):Boolean {
             }
         }
     })
+    console.log('result',expressions)
 
     return expressions.every(value=>value)
 }
 
 export const filterMinions=(minions:GridMinionItem[],filters:CompareItem[])=>{
+    console.log('Used Filters')
+    console.table(filters)
     return minions.filter(minion=>filterMinion(minion,filters))
 }

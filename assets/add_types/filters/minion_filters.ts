@@ -11,6 +11,7 @@ export interface GridMinionItem {
     department : string,
     type : string
     os : string
+    osrelease: string
     manufacturer : string
     cpu_model : string
     created_at : string,
@@ -38,13 +39,14 @@ export const ROOM = "room"
 export const DEPARTMENT = "department"
 export const TYPE = "type"
 export const OS = "os"
+export const OS_RELEASE = "osrelease"
 export const MANUFACTURER = "manufacturer"
 export const CPU_MODEL = "cpu_model"
 export const CREATE_AT = "created_at"
 export const UPDATED_AT = "updated_at"
 
 export type FilterField = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE |
-                          typeof ROOM | typeof DEPARTMENT | typeof TYPE | typeof OS | typeof MANUFACTURER | typeof CPU_MODEL |
+                          typeof ROOM | typeof DEPARTMENT | typeof TYPE | typeof OS | typeof OS_RELEASE | typeof MANUFACTURER | typeof CPU_MODEL |
                           typeof CREATE_AT | typeof UPDATED_AT
 
 export type ColumnFields = typeof NODE_NAME | typeof SERIALNUMBER | typeof IP | typeof MAC | typeof FIO_USER | typeof USER_PHONE |

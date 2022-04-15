@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import {OS} from "@add_types/filters/minion_filters";
+import {OS, OS_RELEASE} from "@add_types/filters/minion_filters";
 import useSWR from "swr";
 import {fetcher} from "@pages/fetcher";
 
@@ -21,7 +21,7 @@ export default function OsCard(){
                     <CardHeader title={"ОС"} subheader={"Операционные системы установленные на миньонах"}/>
                     <CardContent>
 
-                        <DataChart data={data||[]} height={170} field={OS} />
+                        <DataChart data={data||[]} height={170} field={[OS,OS_RELEASE]} />
 
                     </CardContent>
                 </Card>

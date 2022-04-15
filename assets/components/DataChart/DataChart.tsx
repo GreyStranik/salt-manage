@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector} from "recharts";
 import {CompareItem, CompareType, FilterField} from "@add_types/filters/minion_filters";
 import {useDispatch} from "react-redux";
-import {filterOnlyBy} from "@store/filters/actions";
+import {filterBy, filterOnlyBy} from "@store/filters/actions";
 import {useHistory} from "react-router";
 
 export interface ChartDataItem {
@@ -15,7 +15,7 @@ export interface ChartProps {
     data : ChartDataItem[],
     height?: number,
     legendWidth?: number
-    field?: FilterField
+    field?: FilterField|FilterField[]
 }
 
 function DataChart({data, height=250, legendWidth=160, field }:ChartProps){
@@ -31,15 +31,35 @@ function DataChart({data, height=250, legendWidth=160, field }:ChartProps){
     const filter = (value:string) => {
 
         if (field) {
-            if (value!=="Прочие"){
-                const item:CompareItem = {
-                    field:field as FilterField,
+            if(Array.isArray(field)){
+                const vals = value.split(' ')
+                const v2 = vals.pop()
+                const v1 = vals.join(' ')
+                const item1:CompareItem = {
+                    field:field[0] ,
                     compare: CompareType.EQUAL,
-                    value: value
+                    value: v1
                 }
-                dispatch(filterOnlyBy(item))
+                dispatch(filterOnlyBy(item1))
+                const item2:CompareItem = {
+                    field:field[1],
+                    compare: CompareType.EQUAL,
+                    value: v2 as string
+                }
+                dispatch(filterBy(item2))
                 history.push("/minions")
+            } else {
+                if (value!=="Прочие"){
+                    const item:CompareItem = {
+                        field:field as FilterField,
+                        compare: CompareType.EQUAL,
+                        value: value
+                    }
+                    dispatch(filterOnlyBy(item))
+                    history.push("/minions")
+                }
             }
+
         }
     }
 

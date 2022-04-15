@@ -21,11 +21,11 @@ class OsRepository extends ServiceEntityRepository
     }
 
     public function os_static(){
-        $str = "SELECT os.name os_name, count(1) cn
+        $str = "SELECT os.name||' '||minion.osrelease os_name, count(1) cn
                     FROM helpers.os
                     left join minion on minion.os_id = os.id
-                    group by os.name
-                    order by count(1) desc";
+                    group by os_name
+                  order by count(1) desc";
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('os_name', 'name');
         $rsm->addScalarResult('cn','value');

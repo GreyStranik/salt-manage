@@ -39,6 +39,7 @@ function MinionMainInfo(detail:IMinionDetail) {
                     <MinionParamItem title={"Модель"} value={detail?.product_name}/>
                     <MinionParamItem title={"CPU"} value={detail?.cpu_model}/>
                     <MinionParamItem title={"ОС"} value={detail?.os}/>
+                    <MinionParamItem title={"Версия ОС"} value={detail?.osrelease}/>
                     <MinionParamItem title={"Версия BIOS"} value={detail?.biosversion}/>
                     <MinionParamItem title={"Дата BIOS"} value={detail?.biosreleasedate?.toLocaleDateString()}/>
                     <MinionParamItem title={"salt"} value={detail?.saltversion}/>
