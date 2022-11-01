@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {MinionSoft} from "@interfaces/MinionDetailInterfaces";
 import {DataGrid, ColDef, RowsProp} from "@material-ui/data-grid";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -12,6 +12,14 @@ import CustomGridPagination from "@components/addons/CustomGridPagination";
 import {RU_LOCALE_TEXT} from "@components/addons/grid_ru";
 import {NavLink} from "react-router-dom";
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
+// import InputLabel from "@material-ui/core/InputLabel/InputLabel";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import FormControl from "@material-ui/core/FormControl";
+import ClearIcon from "@material-ui/icons/Clear";
+import Grid from "@material-ui/core/Grid";
 
 
 interface ISoftList {
@@ -32,6 +40,9 @@ function MinionSoftInfo(data:ISoftList){
     const classes = useStyles();
 
     const [soft, setSoft] = useState<RowsProp>([])
+    const [find, setFind ] = useState('')
+
+    const filteredSoft = useMemo(()=>soft.filter((item)=>item.name.toLowerCase().includes(find.toLowerCase())),[soft,find])
 
     useEffect(()=>{
         if (data?.soft){
@@ -81,10 +92,30 @@ function MinionSoftInfo(data:ISoftList){
                     avatar={<AppsIcon/>}
                 />
                 <CardContent>
+                    <Grid item xs={12} style={{paddingBottom: '1rem'}}>
+                        <FormControl variant={"outlined"} fullWidth /*className={classes.find} */ >
+                            <InputLabel htmlFor={"soft-find"}>Поиск</InputLabel>
+                            <OutlinedInput
+                                id={"soft-find"}
+                                value={find}
+                                onChange={(e)=>setFind(e.target.value)}
+                                label={'Поиск'}
+                                endAdornment={
+                                    <InputAdornment position={"end"}>
+                                        <IconButton onClick={()=>setFind('')} >
+                                            <ClearIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+                    </Grid>
+
+
                     <div style={{ height: '68vh', width: '100%' }}>
                         <DataGrid
                             columns={columns}
-                            rows={soft}
+                            rows={filteredSoft}
                             loading={data.soft===undefined}
                             autoPageSize={true}
                             disableSelectionOnClick={true}
